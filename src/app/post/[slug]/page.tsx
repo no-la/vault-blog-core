@@ -4,15 +4,20 @@ const posts: Record<string, { title: string; content: string }> = {
   bird: { title: "All About Birds", content: "Birds can fly high." },
 };
 
+export const generateStaticParams = async (): Promise<{ slug: string }[]> => {
+  return Object.keys(posts).map((slug) => ({ slug }));
+};
+
 export default async function BlogPost({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
+  console.log("Generating static params for blog posts", await params);
   const { slug } = await params;
   const post = posts[slug];
   if (!post) {
-    return <div>Loading...</div>;
+    return <div>Not Found</div>;
   }
   return (
     <article>
