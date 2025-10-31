@@ -2,6 +2,7 @@
 title: "気ままな猫の午後"
 date: "2025-10-31"
 tags: ["cat", "pet", "relax"]
+published: true
 ---
 
 # 気ままな猫の午後

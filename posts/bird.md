@@ -2,6 +2,7 @@
 title: "小鳥たちのさえずり"
 date: "2025-10-31"
 tags: ["bird", "nature", "sound"]
+published: true
 ---
 
 # 小鳥たちのさえずり

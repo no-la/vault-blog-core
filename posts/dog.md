@@ -2,6 +2,7 @@
 title: "犬の一日"
 date: "2025-10-31"
 tags: ["dog", "pet", "daily life"]
+published: true
 ---
 
 # 犬の一日
