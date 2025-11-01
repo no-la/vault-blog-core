@@ -2,7 +2,13 @@ const fs = require("fs");
 const path = require("path");
 const matter = require("gray-matter");
 
-const SOURCE_DIR = "I:/Obsidian/NolaBlogTest/NolaBlog";
+require("dotenv").config();
+
+const SOURCE_DIR = process.env.SOURCE_DIR;
+if (!SOURCE_DIR) {
+  console.error("Not Found SOURCE_DIR env");
+  process.exit(1);
+}
 const DEST_DIR = "posts";
 let titleToSlug = {};
 let slugToTitle = {};
