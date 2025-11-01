@@ -1,4 +1,4 @@
-import { getAllPostSlugs, getPost } from "../../../../lib/get-post";
+import { getAllPostSlugs, getPost } from "../../../lib/get-post";
 
 export const generateStaticParams = async (): Promise<{ slug: string }[]> => {
   return getAllPostSlugs();
