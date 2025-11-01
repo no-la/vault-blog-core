@@ -1,8 +1,11 @@
 ---
-title: "小鳥たちのさえずり"
-date: "2025-10-31"
-tags: ["bird", "nature", "sound"]
-published: true
+title: 小鳥たちのさえずり
+date: 2025-10-31
+tags:
+  - bird
+  - nature
+  - sound
+published: false
 ---
 
 # 小鳥たちのさえずり
