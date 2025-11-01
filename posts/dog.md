@@ -1,7 +1,9 @@
 ---
-title: "犬の一日"
-date: "2025-10-31"
-tags: ["dog", "pet", "daily life"]
+title: 犬の一日
+date: 2025-10-31
+tags:
+  - dog
+  - pet
 published: true
 ---
 
