@@ -16,20 +16,6 @@ export const getPost = async (slug: string): Promise<PostHtml> => {
     },
   };
 };
-const getPostMeta = (slug: string, title: string): PostMeta => {
-  const entireContent = fs.readFileSync(`${DIR_PATH}/${title}.md`, "utf-8");
-  const { data } = matter(entireContent);
-  return {
-    slug: slug,
-    title: data.title,
-    tags: data.tags,
-    description: data.description,
-    thumbnail: data.thumbnail,
-    createdAt: data.createdAt, // TODO: conver to Date
-    updatedAt: data.updatedAt, // TODO: conver to Date
-    published: data.published,
-  };
-};
 
 const getPostMd = (slug: string, title: string): PostMd => {
   const entireContent = fs.readFileSync(`${DIR_PATH}/${title}.md`, "utf-8");
