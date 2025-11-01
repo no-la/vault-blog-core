@@ -1,6 +1,4 @@
-import { config } from "dotenv";
-
-config();
+import "dotenv/config";
 
 export const POSTS_DIR = process.env.POSTS_DEST_DIR;
 
