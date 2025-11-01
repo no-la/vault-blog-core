@@ -1,4 +1,4 @@
-import { getAllPostSlugs, slugToTitle } from "@/lib/slug";
+import { getAllPostSlugs, slugToTitle } from "@/lib/slug-map";
 
 export default function Posts() {
   const slugs = getAllPostSlugs();
