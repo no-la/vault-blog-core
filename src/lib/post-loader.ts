@@ -3,8 +3,7 @@ import { markdownToHtml } from "./markdown-to-html";
 import * as fs from "fs";
 import matter from "gray-matter";
 import { getAllPostSlugs, slugToTitle } from "./slug-map";
-
-const DIR_PATH = "posts";
+import { POSTS_DIR } from "@/config/path";
 
 export const getPost = async (slug: string): Promise<PostHtml> => {
   const postMd = getPostMd(slug, slugToTitle(slug));
@@ -18,7 +17,7 @@ export const getPost = async (slug: string): Promise<PostHtml> => {
 };
 
 const getPostMd = (slug: string, title: string): PostMd => {
-  const entireContent = fs.readFileSync(`${DIR_PATH}/${title}.md`, "utf-8");
+  const entireContent = fs.readFileSync(`${POSTS_DIR}/${title}.md`, "utf-8");
   const { content, data } = matter(entireContent);
   return {
     slug: slug,

@@ -1,5 +1,5 @@
 import markdownit from "markdown-it";
-import { existsTitle, titleToSlug } from "./slug-map";
+import { existsTitle, slugToRoute, titleToSlug } from "./slug-map";
 
 export const markdownToHtml = async (markdown: string): Promise<string> => {
   const result = new ConvertingMarkdown(markdown)
@@ -30,7 +30,7 @@ class ConvertingMarkdown {
 
       if (existsTitle(title)) {
         const slug = titleToSlug(title);
-        return `[${linkText}](/posts/${slug})`;
+        return `[${linkText}](${slugToRoute(slug)})`;
       } else {
         return linkText;
       }

@@ -1,3 +1,4 @@
+import { POSTS_DIR } from "@/config/path";
 import { getAllPostMetas } from "@/lib/post-loader";
 import { slugToTitle } from "@/lib/slug-map";
 
@@ -11,7 +12,7 @@ export default function Posts() {
           {postMetas.map((pm) => {
             return (
               <li key={pm.slug}>
-                <a href={`posts/${pm.slug}`}>{slugToTitle(pm.slug)}</a>
+                <a href={`${POSTS_DIR}/${pm.slug}`}>{slugToTitle(pm.slug)}</a>
                 <p>{pm.description}</p>
               </li>
             );

@@ -1,6 +1,7 @@
 import { PostSlug, PostTitle, SlugTitleMap } from "@/types/post";
 import _slugToTitleJson from "../data/slug-to-title.json";
 import _titleToSlugJson from "../data/title-to-slug.json";
+import { ROUTES } from "@/config/path";
 
 const SLUG_TO_TITLE: SlugTitleMap = _slugToTitleJson;
 const TITLE_TO_SLUG: SlugTitleMap = _titleToSlugJson;
@@ -17,6 +18,10 @@ export const titleToSlug = (title: PostTitle): PostSlug => {
     throw new Error(`Not Found: title ${title}`);
   }
   return TITLE_TO_SLUG[title];
+};
+
+export const slugToRoute = (slug: PostSlug): string => {
+  return `${ROUTES.POSTS}/${slug}`;
 };
 
 export const existsSlug = (slug: PostSlug): boolean => {
