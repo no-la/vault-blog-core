@@ -1,17 +1,13 @@
-import { PostMd, SlugTitleMap } from "../types/post";
+import { PostMd } from "../types/post";
 import { markdownToHtml } from "./markdown-to-html";
 import * as fs from "fs";
 import matter from "gray-matter";
-import slugToTitleJson from "../data/slug-to-title.json";
+import { slugToTitle } from "./slug";
 
-const slugToTitle: SlugTitleMap = slugToTitleJson;
 const DIR_PATH = "posts";
 
 export const getPost = async (slug: string): Promise<string> => {
-  if (!(slug in slugToTitle)) {
-    return "Not Found";
-  }
-  const post = getPostMd(slug, slugToTitle[slug]);
+  const post = getPostMd(slug, slugToTitle(slug));
   return markdownToHtml(post.content);
 };
 
