@@ -7,7 +7,7 @@ export const existsPublicImage = (fileName: string): boolean => {
 };
 
 export const imageFileNameToUrl = (fileName: string): string => {
-  return `/images/${encodeForURI(fileName)}`;
+  return `/post-assets/${encodeForURI(fileName)}`;
 };
 
 const encodeForURI = (text: string) => {
