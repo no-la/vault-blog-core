@@ -4,7 +4,7 @@ const matter = require("gray-matter");
 
 require("dotenv").config();
 
-const SOURCE_DIR = process.env.SOURCE_DIR;
+const SOURCE_DIR = process.env.POSTS_SOURCE_DIR;
 if (!SOURCE_DIR) {
   console.error("Not Found SOURCE_DIR env");
   process.exit(1);
