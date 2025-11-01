@@ -8,3 +8,5 @@ export type PostMd = {
     published: boolean;
   };
 };
+
+export type SlugTitleMap = Record<string, string>;
