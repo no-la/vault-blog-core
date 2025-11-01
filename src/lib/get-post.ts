@@ -3,10 +3,8 @@ import { markdownToHtml } from "./markdown-to-html";
 import * as fs from "fs";
 import matter from "gray-matter";
 import slugToTitleJson from "../data/slug-to-title.json";
-import titleToSlugJson from "../data/title-to-slug.json";
 
 const slugToTitle: SlugTitleMap = slugToTitleJson;
-const titleToSlug: SlugTitleMap = titleToSlugJson;
 const DIR_PATH = "posts";
 
 export const getPost = async (slug: string): Promise<string> => {
