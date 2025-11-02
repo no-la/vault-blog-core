@@ -14,5 +14,19 @@ export default async function BlogPost({
   console.log("Generating static params for blog posts", await params);
   const { slug } = await params;
   const post = await getPost(slug);
-  return <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />;
+  return (
+    <div>
+      <div>
+        <p>投稿日:{post.createdAt.toDateString()}</p>
+        <p>投稿日:{post.updatedAt.toDateString()}</p>
+        <ul>
+          {post.tags.map((tag) => (
+            <li key={tag}>#{tag}</li>
+          ))}
+        </ul>
+        <h1>{post.title}</h1>
+      </div>
+      <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+    </div>
+  );
 }

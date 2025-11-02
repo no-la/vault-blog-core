@@ -21,13 +21,13 @@ const getPostMd = (slug: string, title: string): PostMd => {
   const { content, data } = matter(entireContent);
   return {
     slug: slug,
-    title: data.title,
+    title: title,
     contentMd: content,
-    tags: data.tags,
+    tags: data.tags ?? [],
     description: data.description,
     thumbnail: data.thumbnail,
-    createdAt: data.createdAt, // TODO: conver to Date
-    updatedAt: data.updatedAt, // TODO: conver to Date
+    createdAt: new Date(data.createdAt), // TODO: conver to Date
+    updatedAt: new Date(data.updatedAt), // TODO: conver to Date
     published: data.published,
   };
 };
