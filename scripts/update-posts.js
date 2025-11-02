@@ -58,8 +58,6 @@ const collectSourceFiles = (content, exts, sourceDir) => {
     const srcPath = path.join(sourceDir, fileName);
     const destPath = path.join(POST_ASSET_DEST_DIR, encodeForURI(fileName));
 
-    console.log(`Copying ${srcPath} to ${destPath}`);
-
     if (!fs.existsSync(srcPath)) {
       console.warn(`Not Found: source directory ${srcPath} is not found.`);
       continue;
@@ -89,6 +87,19 @@ const initPostsDestDir = () => {
 const encodeForURI = (text) => {
   return encodeURIComponent(text.replace(/\s/g, "-"));
 };
+const parseFrontMatter = (filePath, fm) => {
+  const rev = {
+    slug: fm.slug,
+    title: filePath.replace(".md", ""),
+    published: fm.published,
+    tags: fm.tags ?? [],
+    description: fm.description,
+    thumbnail: fm.thumbnail,
+    createdAt: fm.createdAt,
+    updatedAt: fm.updatedAt,
+  };
+  return rev;
+};
 
 const main = () => {
   initPostsDestDir();
@@ -101,16 +112,25 @@ const main = () => {
 
     // validate front matter
     const { data, content } = getMdDatas(srcPath);
-    if (!data.published) {
+    const meta = parseFrontMatter(item, data);
+    if (!meta.published) {
       console.log(`Skipping unpublished post: ${item}`);
       return;
     }
-    if (!data.slug) {
+    if (!meta.slug) {
       console.warn(`Warning: Post "${item}" is missing a slug. Skipping.`);
       return;
     }
-    if (!isValidSlug(data.slug)) {
+    if (!isValidSlug(meta.slug)) {
       console.warn(`Warning: Post "${item}" has unvalid slug. Skipping.`);
+      return;
+    }
+    if (!meta.createdAt) {
+      console.warn(`Warning: Post "${item}" is missing a createdAt. Skipping.`);
+      return;
+    }
+    if (!meta.updatedAt) {
+      console.warn(`Warning: Post "${item}" is missing a updatedAt. Skipping.`);
       return;
     }
 
