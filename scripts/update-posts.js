@@ -5,25 +5,17 @@ const matter = require("gray-matter");
 require("dotenv").config();
 
 const SOURCE_DIR = process.env.POSTS_SOURCE_DIR;
-const DEST_DIR = process.env.POSTS_DEST_DIR;
 const IMAGE_SOURCE_DIR = process.env.IMAGE_SOURCE_DIR;
-const IMAGE_DEST_DIR = process.env.IMAGE_DEST_DIR;
 if (!SOURCE_DIR) {
   console.error("Not Found SOURCE_DIR env");
-  process.exit(1);
-}
-if (!DEST_DIR) {
-  console.error("Not Found POSTS_DEST_DIR env");
   process.exit(1);
 }
 if (!IMAGE_SOURCE_DIR) {
   console.error("Not Found IMAGE_SOURCE_DIR env");
   process.exit(1);
 }
-if (!IMAGE_DEST_DIR) {
-  console.error("Not Found IMAGE_DEST_DIR env");
-  process.exit(1);
-}
+const DEST_DIR = "posts"; // NOTE: must be same with config.DEST_DIR
+const POST_ASSET_DEST_DIR = "public/post-assets"; // NOTE: must be same with config.POST_SSET_DEST_DIR
 let titleToSlug = {};
 let slugToTitle = {};
 
@@ -41,7 +33,7 @@ const collectImageFiles = (content) => {
     const parts = p1.split("|");
     const fileName = `${parts[0]}.${ext}`;
     const srcPath = path.join(IMAGE_SOURCE_DIR, fileName);
-    const destPath = path.join(IMAGE_DEST_DIR, encodeForURI(fileName));
+    const destPath = path.join(POST_ASSET_DEST_DIR, encodeForURI(fileName));
 
     if (!fs.existsSync(srcPath)) {
       console.warn(`Not Found: Image ${srcPath} is not found.`);
@@ -62,8 +54,8 @@ const collectImageFiles = (content) => {
   }
 };
 const initImageDestDir = () => {
-  fs.rmSync(IMAGE_DEST_DIR, { recursive: true, force: true });
-  fs.mkdirSync(IMAGE_DEST_DIR, { recursive: true });
+  fs.rmSync(POST_ASSET_DEST_DIR, { recursive: true, force: true });
+  fs.mkdirSync(POST_ASSET_DEST_DIR, { recursive: true });
 };
 const initPostsDestDir = () => {
   fs.rmSync(DEST_DIR, { recursive: true, force: true });

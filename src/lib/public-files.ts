@@ -1,9 +1,9 @@
-import { IMAGES_DIR } from "@/config/path";
+import { POST_ASSET_DEST_DIR } from "@/config/path";
 import * as fs from "fs";
 import path from "path";
 
 export const existsPublicImage = (fileName: string): boolean => {
-  return fs.existsSync(path.join(IMAGES_DIR, encodeForURI(fileName)));
+  return fs.existsSync(path.join(POST_ASSET_DEST_DIR, encodeForURI(fileName)));
 };
 
 export const imageFileNameToUrl = (fileName: string): string => {
