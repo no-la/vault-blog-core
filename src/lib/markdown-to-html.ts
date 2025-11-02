@@ -1,15 +1,41 @@
 import markdownit from "markdown-it";
 import { existsTitle, slugToRoute, titleToSlug } from "./slug-map";
-import { existsPublicImage, imageFileNameToUrl } from "./public-files";
+import {
+  encodeForURI,
+  existsPublicFile,
+  publicFileNameToUrl,
+} from "./public-files";
 
 export const markdownToHtml = async (markdown: string): Promise<string> => {
   const result = new ConvertingMarkdown(markdown)
     .convertCardlinkBlocks()
     .convertImageWikiLinks()
+    .convertMovieWikiLinks()
+    .convertSoundWikiLinks()
     .convertWikiLinks()
     .mdRender()
     .toString();
   return result;
+};
+
+const sourceWikiLinksRegex = (exts: string[]): RegExp => {
+  return new RegExp(`!\\[\\[(.+?)\\.(${exts.join("|")})\\]\\]`, "gi");
+};
+
+const embedImageGenerator = (filename: string, ext: string): string => {
+  const filePath = `${filename}.${ext}`;
+  const url = publicFileNameToUrl(filePath);
+  return `![${filename}](${url})`;
+};
+const embedSoundGenerator = (filename: string, ext: string): string => {
+  const filePath = `${filename}.${ext}`;
+  const url = publicFileNameToUrl(filePath);
+  return `<audio src="${url}" controls></audio>`;
+};
+const embedMovieGenerator = (filename: string, ext: string): string => {
+  const filePath = `${filename}.${ext}`;
+  const url = publicFileNameToUrl(filePath);
+  return `<video src="${url}" controls></video>`;
 };
 
 class ConvertingMarkdown {
@@ -42,20 +68,39 @@ class ConvertingMarkdown {
   }
 
   convertImageWikiLinks(): ConvertingMarkdown {
+    return this.convertSourceWikiLinks(
+      ["png", "jpg", "jpeg", "gif"],
+      embedImageGenerator
+    );
+  }
+  convertSoundWikiLinks(): ConvertingMarkdown {
+    return this.convertSourceWikiLinks(["mp3", "wav"], embedSoundGenerator);
+  }
+  convertMovieWikiLinks(): ConvertingMarkdown {
+    return this.convertSourceWikiLinks(
+      ["mp4", "mov", "avi"],
+      embedMovieGenerator
+    );
+  }
+
+  convertSourceWikiLinks(
+    exts: string[],
+    embedElemGenerator: (filename: string, ext: string) => string
+  ): ConvertingMarkdown {
     this.content = this.content.replace(
-      /\!\[\[(.+?)\.(png|jpe?g)\]\]/gi,
+      sourceWikiLinksRegex(exts),
       (match, p1, ext) => {
-        const fileName = `${p1}.${ext}`;
-        if (existsPublicImage(fileName)) {
-          const url = imageFileNameToUrl(fileName);
-          return `![${p1}](${url})`;
-        } else {
-          return fileName;
+        const fileName = encodeForURI(p1);
+        const filePath = `${fileName}.${ext}`;
+        if (existsPublicFile(filePath)) {
+          return embedElemGenerator(fileName, ext);
         }
+        return filePath;
       }
     );
     return this;
   }
+
   convertCardlinkBlocks(): ConvertingMarkdown {
     this.content = this.content.replace(
       /```cardlink\s+([\s\S]*?)```/g,
