@@ -1,0 +1,12 @@
+.tagList {
+    display: flex;
+    list-style: none;
+    flex-direction: row;
+    gap: 0 10px;
+    padding-left: 0;
+    flex-wrap: wrap;
+}
+
+.tagLink {
+    text-decoration: none;
+}

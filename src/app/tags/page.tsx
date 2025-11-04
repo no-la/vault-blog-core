@@ -1,4 +1,7 @@
-import { getAllTags } from "@/lib/blog-utils";
+import Tag from "@/component/tag";
+import { getAllTags, getPostCountByTag } from "@/lib/blog-utils";
+import Link from "next/link";
+import styles from "./tags.module.css";
 
 export default function Tags() {
   const tags = getAllTags();
@@ -6,10 +9,12 @@ export default function Tags() {
     <div>
       <h1>タグ一覧</h1>
       <div>
-        <ul>
+        <ul className={styles.tagList}>
           {tags.map((tag) => (
             <li key={tag}>
-              <a href={`/tags/${tag}`}>{tag}</a>
+              <Link href={`/tags/${tag}`} className={styles.tagLink}>
+                <Tag>{`#${tag} (${getPostCountByTag(tag)}件)`}</Tag>
+              </Link>
             </li>
           ))}
         </ul>
