@@ -1,7 +1,11 @@
 import { PostHtml, PostTag } from "@/types/post";
 import { getPost } from "./post-loader";
 import { getAllPostSlugs } from "./slug-map";
-import { getAllPostTags, getPostSlugsByPostTag } from "./tag-map";
+import {
+  getAllPostTags,
+  getPostCountByPostTag,
+  getPostSlugsByPostTag,
+} from "./tag-map";
 
 // ===== posts =====
 export const getAllPostsSortedByCreatedAt = async (): Promise<PostHtml[]> => {
@@ -56,14 +60,14 @@ export const getRecentPosts = async (limit: number): Promise<PostHtml[]> => {
 export const getAllTags = (): PostTag[] => {
   return getAllPostTags();
 };
-export const getPostsByTag = async (tag: string): Promise<PostHtml[]> => {
+export const getPostsByTag = async (tag: PostTag): Promise<PostHtml[]> => {
   const posts = await Promise.all(
     getPostSlugsByPostTag(tag).map(async (slug) => await getPost(slug))
   );
   return posts;
 };
-export const getPostCountByTag = async () => {
-  /* ... */
+export const getPostCountByTag = (tag: PostTag): number => {
+  return getPostCountByPostTag(tag);
 };
 
 // ===== about =====
