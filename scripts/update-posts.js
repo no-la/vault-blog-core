@@ -4,10 +4,11 @@ const fs = require("fs");
 const path = require("path");
 const matter = require("gray-matter");
 const {
+  initSourceDestDir,
   collectImageFiles,
   collectSoundFiles,
   collectMovieFiles,
-  initSourceDestDir,
+  collectThumbnailFile,
 } = require("./collect-source-files");
 
 const SOURCE_DIR = process.env.POSTS_SOURCE_DIR;
@@ -101,6 +102,7 @@ const main = () => {
     collectImageFiles(content);
     collectSoundFiles(content);
     collectMovieFiles(content);
+    collectThumbnailFile(meta.thumbnail);
 
     fs.cpSync(srcPath, destPath, { recursive: true });
   });
