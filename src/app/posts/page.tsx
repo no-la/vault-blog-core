@@ -25,10 +25,12 @@ export default async function Posts() {
                   />
                 </div>
               )}
-              <h3 className={styles.postTitle}>{post.title}</h3>
-              {post.description && (
-                <p className={styles.description}>{post.description}</p>
-              )}
+              <div className={styles.itemText}>
+                <h3 className={styles.postTitle}>{post.title}</h3>
+                {post.description && (
+                  <p className={styles.description}>{post.description}</p>
+                )}
+              </div>
             </Link>
           </li>
         ))}

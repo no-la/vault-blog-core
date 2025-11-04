@@ -15,15 +15,24 @@
   padding: 0;
   margin: 0;
 }
-
 .item {
   margin-bottom: 2rem;
+  padding: 1rem 1rem 1.5rem 1rem; /* 上右下左の余白 */
+  border-bottom: 2px solid #8991b2;  /* 境界線を少し濃く */
 }
+
+
+.item:last-child {
+  border-bottom: none;             /* 最後の投稿は線なし */
+}
+
 
 .link {
   text-decoration: none;
   color: inherit;
-  display: block;
+  display: flex;
+  align-items:stretcha;
+  gap: 1rem;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
@@ -34,7 +43,7 @@
 
 .thumbnailWrapper {
   position: relative;
-  width: 100%;
+  min-width: 40%;
   max-width: 640px;
   aspect-ratio: 16 / 9;
   overflow: hidden;
@@ -46,7 +55,12 @@
   object-fit: cover;
 }
 
+.itemText {
+    min-width: 60%;
+}
+
 .postTitle {
+    border-bottom: 1px dashed #8991b2;
   font-size: 1.25rem;
   margin: 0.25rem 0;
 }
