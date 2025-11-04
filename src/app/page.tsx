@@ -3,6 +3,21 @@ import styles from "./page.module.css";
 import { getRecentPosts } from "@/lib/blog-utils";
 import PostList from "@/component/post-list";
 
+export const metadata = {
+  openGraph: {
+    title: "Obsidian Blog",
+    description:
+      "Obsidian上のノートを静的ビルドし、ブログとして公開するためのフレームワーク。",
+    images: [
+      {
+        url: "/images/ogp-main.jpg", // 🌟 静的画像の指定
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+};
+
 export default async function Home() {
   const features = [
     "SSG 対応で高速表示",
