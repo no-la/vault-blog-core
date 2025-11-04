@@ -20,10 +20,10 @@ export default async function BlogPost({
       <div className="metadata-container">
         <div className="date-container">
           <p className="date created-at">
-            投稿日:{post.createdAt.toDateString()}
+            投稿日:{post.createdAt.toLocaleDateString("ja-JP")}
           </p>
           <p className="date updated-at">
-            更新日:{post.updatedAt.toDateString()}
+            更新日:{post.updatedAt.toLocaleDateString("ja-JP")}
           </p>
         </div>
         <ul className="tag-container">

@@ -66,6 +66,47 @@ pre::-webkit-scrollbar-thumb:hover {
 }
 
 
+/* 引用 */
+
+blockquote {
+  margin: 1.2em 0;
+  padding: 0.8em 1.2em;
+  border-left: 4px solid #d1d5db; /* 左のグレーライン */
+  background-color: #f9fafb;      /* やわらかい背景色 */
+  border-radius: 6px;
+  color: #374151;                 /* 少し淡い文字色 */
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+/* ネストされた引用にも対応（背景を少し濃く） */
+blockquote blockquote {
+  background-color: #f3f4f6;
+  border-left-color: #9ca3af;
+}
+
+/* Markdownなどで複数行の場合の調整 */
+blockquote > :first-child {
+  margin-top: 0;
+}
+blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* ダークモード対応（任意） */
+@media (prefers-color-scheme: dark) {
+  blockquote {
+    background-color: #1f2937;
+    border-left-color: #4b5563;
+    color: #e5e7eb;
+  }
+  blockquote blockquote {
+    background-color: #111827;
+    border-left-color: #6b7280;
+  }
+}
+
+
 
 /* --- カードリンク --- */
 .cardlink {
