@@ -1,4 +1,4 @@
-import { getAllSlugs, getPostBySlug } from "@/lib/blog-utils";
+import { getAllSlugs, getPostBySlug, getRelatedPosts } from "@/lib/blog-utils";
 import { PostSlug } from "@/types/post";
 
 export const generateStaticParams = (): { slug: PostSlug }[] => {
@@ -13,6 +13,7 @@ export default async function BlogPost({
   console.log("Generating static params for blog posts", await params);
   const { slug } = await params;
   const post = await getPostBySlug(slug);
+  const relatedPosts = await getRelatedPosts(post);
   return (
     <div>
       <div>
@@ -26,6 +27,16 @@ export default async function BlogPost({
         <h1>{post.title}</h1>
       </div>
       <div dangerouslySetInnerHTML={{ __html: post.contentHtml }} />
+      <div>
+        <h2>関連記事</h2>
+        <ul>
+          {relatedPosts.map((post) => (
+            <li key={post.slug}>
+              <a href={`/posts/${post.slug}`}>{post.title}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

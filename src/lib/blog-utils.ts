@@ -42,11 +42,11 @@ export const getAdjacentPosts = async (
 
   return { prev, next };
 };
-export const getRelatedPosts = async (tags: string[]): Promise<PostHtml[]> => {
+export const getRelatedPosts = async (post: PostHtml): Promise<PostHtml[]> => {
   const postsArray = await Promise.all(
-    tags.map(async (tag) => getPostsByTag(tag))
+    post.tags.map(async (tag) => getPostsByTag(tag))
   );
-  return postsArray.flat();
+  return postsArray.flat().filter((p) => p.slug !== post.slug);
 };
 export const getAllSlugs = (): string[] => {
   return getAllPostSlugs();
