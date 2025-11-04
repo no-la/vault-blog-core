@@ -15,10 +15,13 @@ export const getPostBySlug = async (slug: string): Promise<PostHtml> => {
   return await getPost(slug);
 };
 export const getPaginatedPosts = async (
-  page: number,
+  page: number, // 1-indexed
   limit: number
 ): Promise<PostHtml[]> => {
-  /* ... */
+  const allPosts = await getAllPosts();
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+  return allPosts.slice(startIndex, endIndex);
 };
 export const getAdjacentPosts = async (slug: string): Promise<PostHtml[]> => {
   /* ... */
