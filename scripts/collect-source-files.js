@@ -22,6 +22,17 @@ if (!THUMBNAIL_SOURCE_DIR) {
   process.exit(1);
 }
 const POST_ASSET_DEST_DIR = "public/post-assets"; // NOTE: must be same with config.POST_SSET_DEST_DIR
+if (
+  POST_ASSET_DEST_DIR === IMAGE_SOURCE_DIR ||
+  POST_ASSET_DEST_DIR === SOUND_SOURCE_DIR ||
+  POST_ASSET_DEST_DIR === MOVIE_SOURCE_DIR ||
+  POST_ASSET_DEST_DIR === THUMBNAIL_SOURCE_DIR
+) {
+  console.error(
+    `You can't set ${POST_ASSET_DEST_DIR} as IMAGE_SOURCE_DIR, SOUND_SOURCE_DIR, MOVIE_SOURCE_DIR, or THUMBNAIL_SOURCE_DIR.`
+  );
+  process.exit(1);
+}
 
 const initSourceDestDir = () => {
   fs.rmSync(POST_ASSET_DEST_DIR, { recursive: true, force: true });

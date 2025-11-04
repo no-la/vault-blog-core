@@ -17,6 +17,10 @@ if (!SOURCE_DIR) {
   process.exit(1);
 }
 const DEST_DIR = "posts"; // NOTE: must be same with config.DEST_DIR
+if (SOURCE_DIR === DEST_DIR) {
+  console.error(`You can't set ${DEST_DIR} as POSTS_SOURCE_DIR.`);
+  process.exit(1);
+}
 const titleToSlug = {};
 const slugToTitle = {};
 const slugToMetadata = {};
