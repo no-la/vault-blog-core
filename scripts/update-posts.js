@@ -10,6 +10,7 @@ const {
   collectMovieFiles,
   collectThumbnailFile,
 } = require("./collect-source-files");
+const { canPublish } = require("./config");
 
 const SOURCE_DIR = process.env.POSTS_SOURCE_DIR;
 if (!SOURCE_DIR) {
@@ -64,8 +65,10 @@ const main = () => {
     // validate front matter
     const { data, content } = getMdDatas(srcPath);
     const meta = parseFrontMatter(item, data);
-    if (!meta.published) {
-      console.log(`Skipping unpublished post: ${item}`);
+    if (!canPublish(data)) {
+      console.log(
+        `Skipping unpublished post: ${item} because your canPublish function returned false.`
+      );
       return;
     }
     if (!meta.slug) {
@@ -114,10 +117,6 @@ const main = () => {
   const DATA_DIR = "src/data";
   overwriteJsonFile(path.join(DATA_DIR, "slug-to-title.json"), slugToTitle);
   overwriteJsonFile(path.join(DATA_DIR, "title-to-slug.json"), titleToSlug);
-  // overwriteJsonFile(
-  //   path.join(DATA_DIR, "slug-to-metadata.json"),
-  //   slugToMetadata
-  // );
   overwriteJsonFile(path.join(DATA_DIR, "tag-to-slugs.json"), tagToSlugs);
 };
 
