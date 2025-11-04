@@ -3,6 +3,7 @@ import { getAllPostsSortedByCreatedAt } from "@/lib/blog-utils";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./posts.module.css";
+import Tag from "@/component/tag";
 
 export default async function Posts() {
   const allPosts = await getAllPostsSortedByCreatedAt();
@@ -27,6 +28,19 @@ export default async function Posts() {
               )}
               <div className={styles.itemText}>
                 <h3 className={styles.postTitle}>{post.title}</h3>
+                <div className={styles.metadataContainer}>
+                  <p className={styles.date}>
+                    投稿日:{post.createdAt.toLocaleDateString("ja-JP")}
+                  </p>
+                  <p className={styles.date}>
+                    更新日:{post.updatedAt.toLocaleDateString("ja-JP")}
+                  </p>
+                  <ul className={styles.tagContainer}>
+                    {post.tags.map((tag) => (
+                      <li key={tag}>{<Tag>{`#${tag}`}</Tag>}</li>
+                    ))}
+                  </ul>
+                </div>
                 {post.description && (
                   <p className={styles.description}>{post.description}</p>
                 )}

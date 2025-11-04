@@ -65,6 +65,20 @@
   margin: 0.25rem 0;
 }
 
+.metadataContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.tagContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    list-style: none;
+}
+
+
 .description {
   color: #555;
   font-size: 0.95rem;

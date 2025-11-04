@@ -2,6 +2,7 @@ import { getAllSlugs, getPostBySlug, getRelatedPosts } from "@/lib/blog-utils";
 import { PostSlug } from "@/types/post";
 import styles from "./post.module.css";
 import Link from "next/link";
+import Tag from "@/component/tag";
 
 export const generateStaticParams = (): { slug: PostSlug }[] => {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -31,7 +32,9 @@ export default async function BlogPost({
         <ul className={styles.tagContainer}>
           {post.tags.map((tag) => (
             <li key={tag} className={styles.tag}>
-              <Link href={`/tags/${tag}`}>#{tag}</Link>
+              <Link href={`/tags/${tag}`}>
+                <Tag>{`#${tag}`}</Tag>
+              </Link>
             </li>
           ))}
         </ul>

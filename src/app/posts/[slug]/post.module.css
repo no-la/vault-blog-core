@@ -30,13 +30,6 @@
   padding: 0;
 }
 
-.tag {
-  background-color: #eef2f6;
-  color: #333;
-  border-radius: 0.5rem;
-  padding: 0.3rem 0.6rem;
-  font-size: 0.85rem;
-}
 
 .tag a{
   text-decoration: none;
