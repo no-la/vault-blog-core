@@ -7,6 +7,7 @@ const Tag = ({ children }: { children: string }) => {
         borderRadius: "0.5rem",
         padding: "0.1rem 0.6rem",
         fontSize: "85%",
+        lineHeight: "1.3em",
       }}
     >
       {children}

@@ -50,9 +50,20 @@ export default async function BlogPost({
       <div className={styles.relatedPosts}>
         <h2>関連記事</h2>
         <ul>
-          {relatedPosts.map((related) => (
-            <li key={related.slug}>
-              <Link href={`/posts/${related.slug}`}>{related.title}</Link>
+          {relatedPosts.map((post) => (
+            <li key={post.slug}>
+              <span>
+                <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+                <ul className={styles.tagContainer}>
+                  {post.tags.map((tag) => (
+                    <li key={tag}>
+                      <Link href={`/tags/${tag}`}>
+                        <Tag>{`#${tag}`}</Tag>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </span>
             </li>
           ))}
         </ul>
