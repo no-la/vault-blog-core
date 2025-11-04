@@ -4,6 +4,7 @@ export interface PostMd extends PostMeta {
 
 export interface PostHtml extends PostMeta {
   contentHtml: string;
+  description: string;
 }
 
 export interface PostMeta {

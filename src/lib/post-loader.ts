@@ -9,12 +9,14 @@ import { existsPublicFile, publicFileNameToUrl } from "./public-files";
 export const getPost = async (slug: string): Promise<PostHtml> => {
   const postMd = getPostMd(slug, slugToTitle(slug));
   const contentHtml = await markdownToHtml(postMd.contentMd);
-  return {
+  const postHtml: PostHtml = {
     ...postMd,
     ...{
       contentHtml: contentHtml,
+      description: generateDescription(postMd, contentHtml),
     },
   };
+  return postHtml;
 };
 
 const getPostMd = (slug: string, title: string): PostMd => {
@@ -54,6 +56,24 @@ const convertThumbnailPath = (thumbnailFm: string): string | null => {
     return null;
   }
   return publicFileNameToUrl(fileName);
+};
+
+const generateDescription = (
+  postMd: PostMeta,
+  contentHtml: string,
+  maxLength = 200
+): string => {
+  if (postMd.description) {
+    return postMd.description;
+  }
+
+  const textContent = contentHtml.replace(/<[^>]+>/g, "");
+  const cleanText = textContent.replace(/\s+/g, " ").trim();
+
+  if (cleanText.length > maxLength) {
+    return cleanText.slice(0, maxLength) + "...";
+  }
+  return cleanText;
 };
 
 export const getAllPostMetas = (): PostMeta[] => {
