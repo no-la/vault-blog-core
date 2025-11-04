@@ -1,9 +1,8 @@
 import { getAllSlugs, getPostBySlug, getRelatedPosts } from "@/lib/blog-utils";
 import { PostSlug } from "@/types/post";
-import styles from "./post.module.css"; // ← ✅ CSS Modules に変更
+import styles from "./post.module.css";
 import Link from "next/link";
 
-// ✅ Promise ではなく普通の params
 export const generateStaticParams = (): { slug: PostSlug }[] => {
   return getAllSlugs().map((slug) => ({ slug }));
 };
