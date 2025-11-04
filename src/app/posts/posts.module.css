@@ -78,9 +78,10 @@
 
 .tagContainer {
     display: flex;
+    list-style: none;
     flex-direction: row;
     gap: 10px;
-    list-style: none;
+    padding-left: 0;
 }
 
 .date { 
