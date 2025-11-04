@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Nola Blog",
-  description: "A blog about Nola",
+  title: "Obsidian Blog",
+  description: "A Sapmle of Obsidina Blog",
 };
 
 export default function RootLayout({
@@ -26,10 +27,25 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <header>
-          <h1>Nola Blog</h1>
-          <nav>This is the navigation bar</nav>
+          <h1 className="title">Obsidian Blog</h1>
+          <nav>
+            <ul className="nav-ul">
+              <li className="nav-li">
+                <Link href="/">Home</Link>
+              </li>
+              <li className="nav-li">
+                <Link href="/about">About</Link>
+              </li>
+              <li className="nav-li">
+                <Link href="/posts">Posts</Link>
+              </li>
+              <li className="nav-li">
+                <Link href="/tags">Tags</Link>
+              </li>
+            </ul>
+          </nav>
         </header>
-        <main>{children}</main>
+        <main className="main-content">{children}</main>
       </body>
     </html>
   );
