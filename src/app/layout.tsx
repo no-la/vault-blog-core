@@ -42,7 +42,7 @@ export default function RootLayout({
               height={40}
               className="logo"
             />
-            <h1 className="title">Vault Blog Core</h1>
+            <h1 className={`title ${fredoka.variable}`}>Vault Blog Core</h1>
           </Link>
           <nav>
             <ul className="nav-ul">
