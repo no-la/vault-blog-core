@@ -11,8 +11,8 @@ import {
   collectMovieFiles,
   collectThumbnailFile,
 } from "./collect-source-files";
-import { canPublish } from "./config";
 import { parseFrontMatter } from "../lib/parse-post";
+import { canPublish } from "../config/can-publish";
 
 const SOURCE_DIR = process.env.POSTS_SOURCE_DIR;
 if (!SOURCE_DIR) {
