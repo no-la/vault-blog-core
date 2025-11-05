@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 
 export const DEFAULT_METADATA: Metadata = {
+  title: "Vault Blog Core",
+  description: "Markdownファイル群をブログとして公開するためのフレームワーク",
   openGraph: {
     title: "Vault Blog Core",
     description: "Markdownファイル群をブログとして公開するためのフレームワーク",
