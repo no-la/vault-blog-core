@@ -3,7 +3,7 @@ import { PostHtml, PostMeta } from "../../types/post";
 import { markdownToHtml } from "./markdown-to-html";
 import { getAllPostSlugs, slugToTitle } from "./slug-map";
 
-export const getPost = async (slug: string): Promise<PostHtml> => {
+export const getPostHtml = async (slug: string): Promise<PostHtml> => {
   const postMd = getPostMd(slug, slugToTitle(slug));
   const contentHtml = await markdownToHtml(postMd.contentMd);
   const postHtml: PostHtml = {

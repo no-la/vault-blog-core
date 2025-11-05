@@ -1,5 +1,5 @@
 import { PostHtml, PostTag } from "../../types/post";
-import { getPost } from "./post-loader";
+import { getPostHtml } from "./post-loader";
 import { getAllPostSlugs } from "./slug-map";
 import {
   getAllPostTags,
@@ -12,7 +12,7 @@ export const getAllPostsSortedByCreatedAt = async (): Promise<PostHtml[]> => {
   const allSlugs = getAllSlugs();
   const posts: PostHtml[] = [];
   for (const slug of allSlugs) {
-    const post = await getPost(slug);
+    const post = await getPostHtml(slug);
     posts.push(post);
   }
   // sorted by createdAt
@@ -20,7 +20,7 @@ export const getAllPostsSortedByCreatedAt = async (): Promise<PostHtml[]> => {
   return posts.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 };
 export const getPostBySlug = async (slug: string): Promise<PostHtml> => {
-  return await getPost(slug);
+  return await getPostHtml(slug);
 };
 export const getPaginatedPosts = async (
   page: number, // 1-indexed
@@ -62,7 +62,7 @@ export const getAllTags = (): PostTag[] => {
 };
 export const getPostsByTag = async (tag: PostTag): Promise<PostHtml[]> => {
   const posts = await Promise.all(
-    getPostSlugsByPostTag(tag).map(async (slug) => await getPost(slug))
+    getPostSlugsByPostTag(tag).map(async (slug) => await getPostHtml(slug))
   );
   return posts;
 };
