@@ -8,6 +8,11 @@ import {
   THUMBNAIL_SOURCE_DIR,
 } from "./config";
 import { encodeForURI } from "../lib/path-utils";
+import {
+  IMAGE_EXTENSIONS,
+  MOVIE_EXTENSIONS,
+  SOUND_EXTENSIONS,
+} from "../config/extensions";
 
 export const initSourceDestDir = () => {
   fs.rmSync(POST_ASSET_DEST_DIR, { recursive: true, force: true });
@@ -19,13 +24,13 @@ const sourceWikiLinksRegex = (exts: string[]) => {
   return new RegExp(`!\\[\\[(.+?)\\.(${exts.join("|")})\\]\\]`, "gi");
 };
 export const collectImageFiles = (content: string) => {
-  collectSourceFiles(content, ["png", "jpg", "jpeg", "gif"], IMAGE_SOURCE_DIR);
+  collectSourceFiles(content, IMAGE_EXTENSIONS, IMAGE_SOURCE_DIR);
 };
 export const collectSoundFiles = (content: string) => {
-  collectSourceFiles(content, ["mp3", "wav"], SOUND_SOURCE_DIR);
+  collectSourceFiles(content, SOUND_EXTENSIONS, SOUND_SOURCE_DIR);
 };
 export const collectMovieFiles = (content: string) => {
-  collectSourceFiles(content, ["mp4", "mov", "avi"], MOVIE_SOURCE_DIR);
+  collectSourceFiles(content, MOVIE_EXTENSIONS, MOVIE_SOURCE_DIR);
 };
 const collectSourceFiles = (
   content: string,
