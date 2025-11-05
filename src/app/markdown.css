@@ -166,6 +166,41 @@ blockquote > :last-child {
   border-radius: 3px;
 }
 
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  border: 1px solid #d0e3f0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.markdown-body th,
+.markdown-body td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e4f0fa;
+}
+
+.markdown-body th {
+  background-color: #f3f9ff;
+  font-weight: 600;
+}
+
+.markdown-body tr:nth-child(even) td {
+  background-color: #f7f7f7;
+}
+
+.markdown-body table caption {
+  caption-side: bottom;
+  padding-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+
 /* --- Callout --- */
 .callout {
   border-left: 4px solid #aaa;

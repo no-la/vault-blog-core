@@ -76,7 +76,7 @@ export default async function BlogPost({
         <h1>{post.title}</h1>
       </div>
       <div
-        className={styles.markdownBody}
+        className={`${styles.markdownBody} markdown-body`}
         dangerouslySetInnerHTML={{ __html: post.contentHtml }}
       />
 
