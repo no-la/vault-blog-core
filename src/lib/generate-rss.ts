@@ -1,8 +1,8 @@
-import { SITE_URL } from "@/config/route";
 import { getAllPostsSortedByCreatedAt } from "@/lib/blog-utils";
 import fs from "fs";
 import path from "path";
 import RSS from "rss";
+import { SITE_URL } from "../../config/path";
 
 export async function generateRssFeed() {
   const posts = await getAllPostsSortedByCreatedAt();
