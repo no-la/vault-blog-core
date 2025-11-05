@@ -4,7 +4,7 @@ import { POSTS_DIR } from "../config/path";
 import * as fs from "fs";
 import { publicFileNameToUrl } from "./path-utils";
 
-export const parseMarkdown = (filePath: string) => {
+export const extractFrontMatter = (filePath: string) => {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   return matter(fileContent);
 };
@@ -25,8 +25,7 @@ export const parseFrontMatter = (
 };
 
 export const getPostMd = (slug: string, title: string): PostMd => {
-  const entireContent = fs.readFileSync(`${POSTS_DIR}/${title}.md`, "utf-8");
-  const { content, data } = matter(entireContent);
+  const { content, data } = extractFrontMatter(`${POSTS_DIR}/${title}.md`);
   return {
     slug: slug,
     title: title,

@@ -3,7 +3,6 @@ import "dotenv/config";
 import { FrontMatter, PostMeta, PostSlug, PostTag } from "../types/post";
 import * as fs from "fs";
 import path from "path";
-import matter from "gray-matter";
 import {
   initSourceDestDir,
   collectImageFiles,
@@ -11,7 +10,7 @@ import {
   collectMovieFiles,
   collectThumbnailFile,
 } from "./collect-source-files";
-import { parseFrontMatter, parseMarkdown } from "../lib/parse-post";
+import { parseFrontMatter, extractFrontMatter } from "../lib/parse-post";
 import { canPublish } from "../config/can-publish";
 
 const SOURCE_DIR = process.env.POSTS_SOURCE_DIR;
@@ -48,7 +47,7 @@ const main = () => {
     const destPath = path.join(DEST_DIR, item);
 
     // validate front matter
-    const { data, content } = parseMarkdown(srcPath);
+    const { data, content } = extractFrontMatter(srcPath);
     if (!canPublish(data)) {
       console.log(
         `Skipping unpublished post: ${item} because your canPublish function returned false.`
