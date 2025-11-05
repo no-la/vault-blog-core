@@ -2,8 +2,6 @@ import "dotenv/config";
 
 import path from "path";
 
-export const SITE_URL = process.env.SITE_URL;
-
 export const POSTS_DIR = "posts";
 export const PUBLIC_DIR = "public";
 export const POST_ASSET_DEST_DIR = path.join(PUBLIC_DIR, "post-assets");
@@ -33,6 +31,8 @@ if (!process.env.SITE_URL) {
   console.error("Not Found: SITE_URL env");
   process.exit(1);
 }
+
+export const SITE_URL = process.env.SITE_URL;
 
 export const IMAGE_SOURCE_DIR = process.env.IMAGE_SOURCE_DIR;
 export const SOUND_SOURCE_DIR = process.env.SOUND_SOURCE_DIR;
