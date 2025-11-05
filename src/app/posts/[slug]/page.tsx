@@ -5,6 +5,7 @@ import Link from "next/link";
 import Tag from "@/component/tag";
 import { Metadata } from "next";
 import { DEFAULT_METADATA } from "@/config/metadata";
+import { getPostUrl, getTagUrl } from "../../../../lib/path-utils";
 
 export const generateStaticParams = (): { slug: PostSlug }[] => {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -67,7 +68,7 @@ export default async function BlogPost({
         <ul className={styles.tagContainer}>
           {post.tags.map((tag) => (
             <li key={tag} className={styles.tag}>
-              <Link href={`/tags/${tag}`}>
+              <Link href={getTagUrl(tag)}>
                 <Tag>{`#${tag}`}</Tag>
               </Link>
             </li>
@@ -86,11 +87,11 @@ export default async function BlogPost({
           {relatedPosts.map((post) => (
             <li key={post.slug}>
               <span>
-                <Link href={`/posts/${post.slug}`}>{post.title}</Link>
+                <Link href={getPostUrl(post.slug)}>{post.title}</Link>
                 <ul className={styles.tagContainer}>
                   {post.tags.map((tag) => (
                     <li key={tag}>
-                      <Link href={`/tags/${tag}`}>
+                      <Link href={getTagUrl(tag)}>
                         <Tag>{`#${tag}`}</Tag>
                       </Link>
                     </li>

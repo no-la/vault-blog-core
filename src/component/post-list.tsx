@@ -3,13 +3,14 @@ import styles from "./post-list.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Tag from "./tag";
+import { getPostUrl } from "../../lib/path-utils";
 
 const PostList = ({ posts }: { posts: PostHtml[] }) => {
   return (
     <ul className={styles.list}>
       {posts.map((post) => (
         <li key={post.slug} className={styles.item}>
-          <Link href={`/posts/${post.slug}`} className={styles.link}>
+          <Link href={getPostUrl(post.slug)} className={styles.link}>
             {post.thumbnail && (
               <div className={styles.thumbnailWrapper}>
                 <Image

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./about.module.css";
+import { getHomeUrl } from "../../../lib/path-utils";
 
 export default function About() {
   const techStack = [
@@ -63,7 +64,7 @@ export default function About() {
         </ul>
       </section>
 
-      <Link href="/" className={styles.homeLink}>
+      <Link href={getHomeUrl()} className={styles.homeLink}>
         ← トップページへ戻る
       </Link>
     </div>

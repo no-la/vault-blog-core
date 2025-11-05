@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import RSS from "rss";
 import { SITE_URL } from "../../config/path";
+import { getPostUrl } from "../../lib/path-utils";
 
 export async function generateRssFeed() {
   const posts = await getAllPostsSortedByCreatedAt();
@@ -16,7 +17,7 @@ export async function generateRssFeed() {
   });
 
   posts.forEach((post) => {
-    const postUrl = `${SITE_URL}/posts/${post.slug}`;
+    const postUrl = `${SITE_URL}/${getPostUrl(post.slug)}`;
     feed.item({
       title: post.title,
       description: post.description,

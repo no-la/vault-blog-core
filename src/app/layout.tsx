@@ -5,6 +5,12 @@ import "./markdown.css";
 import Link from "next/link";
 import Image from "next/image";
 import { DEFAULT_METADATA } from "@/config/metadata";
+import {
+  getAboutUrl,
+  getHomeUrl,
+  getPostsUrl,
+  getTagsUrl,
+} from "../../lib/path-utils";
 
 const fredoka = Fredoka({
   variable: "--font-fredoka",
@@ -31,7 +37,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <header>
-          <Link href="/" className="title-link">
+          <Link href={getHomeUrl()} className="title-link">
             <Image
               src="/images/logo-small.png"
               alt="Vault Blog Logo"
@@ -44,16 +50,16 @@ export default function RootLayout({
           <nav>
             <ul className="nav-ul">
               <li className="nav-li">
-                <Link href="/">Home</Link>
+                <Link href={getHomeUrl()}>Home</Link>
               </li>
               <li className="nav-li">
-                <Link href="/about">About</Link>
+                <Link href={getAboutUrl()}>About</Link>
               </li>
               <li className="nav-li">
-                <Link href="/posts">Posts</Link>
+                <Link href={getPostsUrl()}>Posts</Link>
               </li>
               <li className="nav-li">
-                <Link href="/tags">Tags</Link>
+                <Link href={getTagsUrl()}>Tags</Link>
               </li>
             </ul>
           </nav>

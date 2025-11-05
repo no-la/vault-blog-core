@@ -3,6 +3,11 @@ import styles from "./page.module.css";
 import { getRecentPosts } from "@/lib/blog-utils";
 import PostList from "@/component/post-list";
 import PageThumbnail from "@/component/page-thumbnail";
+import {
+  getAboutUrl,
+  getPostAssetUrlByFilename,
+  getPostsUrl,
+} from "../../lib/path-utils";
 
 export default async function Home() {
   const features = [
@@ -34,14 +39,14 @@ export default async function Home() {
       <section className={styles.posts}>
         <h2>サンプル記事</h2>
         <PostList posts={samplePosts} />
-        <Link href="/posts" className={styles.right}>
+        <Link href={getPostsUrl()} className={styles.right}>
           もっと見る
         </Link>
       </section>
 
       <section className={styles.about}>
         <h2>使い方</h2>
-        <Link href="/about" className={styles.right}>
+        <Link href={getAboutUrl()} className={styles.right}>
           プロジェクト詳細・使い方はこちら
         </Link>
       </section>
