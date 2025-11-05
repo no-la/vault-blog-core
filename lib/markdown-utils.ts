@@ -58,16 +58,30 @@ const convertThumbnailPath = (thumbnailFm: string): string | null => {
   return publicFileNameToUrl(fileName);
 };
 
-export const embedSourceWikiLinksRegex = (exts: string[]): RegExp => {
-  return new RegExp(embedSourceWikiLinkRegex(exts), "g");
+export const allEmbedWikiLinksRegex = (): RegExp => {
+  return new RegExp("!\\[\\[(.+?)\\]\\]", "g");
 };
 
-export const embedSourceWikiLinkRegex = (exts: string[]): RegExp => {
-  return new RegExp(`!\\[\\[(.+?)\\.(${exts.join("|")})\\]\\]`);
+export const allWikiLinksRegex = (): RegExp => {
+  return new RegExp("\\[\\[(.+?)\\]\\]", "g");
 };
 
-export const sourceWikiLinkRegex = (exts: string[]): RegExp => {
-  return new RegExp(`\\[\\[(.+?)\\.(${exts.join("|")})\\]\\]`);
+export const parseWikiLinkContent = (
+  content: string
+): { filename: string; ext: string | null; alt: string | null } => {
+  const parts = content.split("|");
+  const pathData = parts[0].split(".");
+  const filename = pathData[0];
+  let alt = null;
+  let ext = null;
+  if (parts.length >= 2) {
+    alt = parts.slice(1).join("");
+  }
+  if (pathData.length > 1) {
+    ext = pathData[parts.length];
+  }
+  console.log({ filename, ext, alt });
+  return { filename, ext, alt };
 };
 
 export const escapeHtml = (unsafe: string): string => {

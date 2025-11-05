@@ -6,21 +6,22 @@ import {
   publicFileNameToUrl,
 } from "../../lib/path-utils";
 import {
-  embedSourceWikiLinksRegex,
+  allEmbedWikiLinksRegex,
+  allWikiLinksRegex,
   escapeHtml,
+  parseWikiLinkContent,
 } from "../../lib/markdown-utils";
 import {
   IMAGE_EXTENSIONS,
   MOVIE_EXTENSIONS,
   SOUND_EXTENSIONS,
 } from "../../config/extensions";
+import { PostSlug } from "../../types/post";
 
 export const markdownToHtml = async (markdown: string): Promise<string> => {
   const result = new ConvertingMarkdown(markdown)
     .convertCardlinkBlocks()
-    .convertImageWikiLinks()
-    .convertMovieWikiLinks()
-    .convertSoundWikiLinks()
+    .convertEmbedWikiLinks()
     .convertWikiLinks()
     .converCallouts()
     .mdRender()
@@ -28,6 +29,9 @@ export const markdownToHtml = async (markdown: string): Promise<string> => {
   return result;
 };
 
+const embedPageGenerator = (alt: string, url: PostSlug): string => {
+  return pageLinkGenerator(alt, url);
+};
 const embedImageGenerator = (filename: string, ext: string): string => {
   const filePath = `${filename}.${ext}`;
   const url = publicFileNameToUrl(filePath);
@@ -43,6 +47,18 @@ const embedMovieGenerator = (filename: string, ext: string): string => {
   const url = publicFileNameToUrl(filePath);
   return `<video src="${url}" controls></video>`;
 };
+const pageLinkGenerator = (alt: string, url: PostSlug): string => {
+  return `[${alt}](${url})`;
+};
+const imageLinkGenerator = (filename: string, ext: string): string => {
+  return embedImageGenerator(filename, ext);
+};
+const soundLinkGenerator = (filename: string, ext: string): string => {
+  return embedSoundGenerator(filename, ext);
+};
+const movieLinkGenerator = (filename: string, ext: string): string => {
+  return embedMovieGenerator(filename, ext);
+};
 
 class ConvertingMarkdown {
   constructor(private content: string) {}
@@ -57,47 +73,58 @@ class ConvertingMarkdown {
     return this;
   }
 
-  convertWikiLinks(): ConvertingMarkdown {
-    this.content = this.content.replace(/\[\[(.+?)\]\]/g, (match, p1) => {
-      const parts = p1.split("|");
-      const linkText = parts[1] || parts[0];
-      const title = parts[0];
+  convertEmbedWikiLinks(): ConvertingMarkdown {
+    this.content = this.content.replace(
+      allEmbedWikiLinksRegex(),
+      (match, p1) => {
+        const { filename, ext, alt } = parseWikiLinkContent(p1);
 
-      if (existsTitle(title)) {
-        const slug = titleToSlug(title);
-        return `[${linkText}](${slugToRoute(slug)})`;
-      } else {
-        return linkText;
+        if (ext === null) {
+          // This is .md in Obsidian
+          if (existsTitle(filename)) {
+            const slug = titleToSlug(filename);
+            return embedPageGenerator(alt || filename, slugToRoute(slug));
+          }
+          return alt || filename;
+        }
+
+        if (IMAGE_EXTENSIONS.includes(ext)) {
+          return embedImageGenerator(filename, ext);
+        } else if (SOUND_EXTENSIONS.includes(ext)) {
+          return embedSoundGenerator(filename, ext);
+        } else if (MOVIE_EXTENSIONS.includes(ext)) {
+          return embedMovieGenerator(filename, ext);
+        } else {
+          return alt || filename;
+        }
       }
-    });
+    );
     return this;
   }
 
-  convertImageWikiLinks(): ConvertingMarkdown {
-    return this.convertSourceWikiLinks(IMAGE_EXTENSIONS, embedImageGenerator);
-  }
-  convertSoundWikiLinks(): ConvertingMarkdown {
-    return this.convertSourceWikiLinks(SOUND_EXTENSIONS, embedSoundGenerator);
-  }
-  convertMovieWikiLinks(): ConvertingMarkdown {
-    return this.convertSourceWikiLinks(MOVIE_EXTENSIONS, embedMovieGenerator);
-  }
+  convertWikiLinks(): ConvertingMarkdown {
+    this.content = this.content.replace(allWikiLinksRegex(), (match, p1) => {
+      const { filename, ext, alt } = parseWikiLinkContent(p1);
 
-  convertSourceWikiLinks(
-    exts: string[],
-    embedElemGenerator: (filename: string, ext: string) => string
-  ): ConvertingMarkdown {
-    this.content = this.content.replace(
-      embedSourceWikiLinksRegex(exts),
-      (match, p1, ext) => {
-        const fileName = encodeForURI(p1);
-        const filePath = `${fileName}.${ext}`;
-        if (existsPublicFile(filePath)) {
-          return embedElemGenerator(fileName, ext);
+      if (ext === null) {
+        // This is .md in Obsidian
+        if (existsTitle(filename)) {
+          const slug = titleToSlug(filename);
+          return pageLinkGenerator(filename, slugToRoute(slug));
         }
-        return filePath;
+        return alt || filename;
       }
-    );
+
+      if (IMAGE_EXTENSIONS.includes(ext)) {
+        return imageLinkGenerator(filename, ext);
+      } else if (SOUND_EXTENSIONS.includes(ext)) {
+        return soundLinkGenerator(filename, ext);
+      } else if (MOVIE_EXTENSIONS.includes(ext)) {
+        return movieLinkGenerator(filename, ext);
+      } else {
+        return alt || filename;
+      }
+    });
     return this;
   }
 
