@@ -18,8 +18,8 @@ export const encodeForURI = (text: string) => {
 /**
  * Markdownファイル関連
  */
-export const getPostMdFilePath = (title: PostTitle) =>
-  path.join(POSTS_DIR, `${title}.md`);
+export const getPostMdFilePath = (filename: string) =>
+  path.join(POSTS_DIR, `${filename}`);
 
 /**
  * 各ページのURL生成

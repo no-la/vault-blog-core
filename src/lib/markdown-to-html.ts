@@ -1,5 +1,5 @@
 import markdownit from "markdown-it";
-import { existsTitle, titleToSlug } from "./slug-map";
+import { existsFilename, filenameToSlug } from "./slug-map";
 import {
   allEmbedWikiLinksRegex,
   allWikiLinksRegex,
@@ -49,25 +49,26 @@ class ConvertingMarkdown {
     this.content = this.content.replace(
       allEmbedWikiLinksRegex(),
       (match, p1) => {
-        const { filename, ext, alt } = parseWikiLinkContent(p1);
+        const { basename, ext, alt } = parseWikiLinkContent(p1);
 
         if (ext === null) {
           // This is .md in Obsidian
-          if (existsTitle(filename)) {
-            const slug = titleToSlug(filename);
-            return embedPageGenerator(alt || filename, getPostUrl(slug));
+          const filename = `${basename}.md`;
+          if (existsFilename(filename)) {
+            const slug = filenameToSlug(filename);
+            return embedPageGenerator(alt || basename, getPostUrl(slug));
           }
-          return alt || filename;
+          return alt || basename;
         }
 
         if (IMAGE_EXTENSIONS.includes(ext)) {
-          return embedImageGenerator(filename, ext);
+          return embedImageGenerator(basename, ext);
         } else if (SOUND_EXTENSIONS.includes(ext)) {
-          return embedSoundGenerator(filename, ext);
+          return embedSoundGenerator(basename, ext);
         } else if (MOVIE_EXTENSIONS.includes(ext)) {
-          return embedMovieGenerator(filename, ext);
+          return embedMovieGenerator(basename, ext);
         } else {
-          return alt || filename;
+          return alt || basename;
         }
       }
     );
@@ -76,25 +77,26 @@ class ConvertingMarkdown {
 
   convertWikiLinks(): ConvertingMarkdown {
     this.content = this.content.replace(allWikiLinksRegex(), (match, p1) => {
-      const { filename, ext, alt } = parseWikiLinkContent(p1);
+      const { basename, ext, alt } = parseWikiLinkContent(p1);
 
       if (ext === null) {
         // This is .md in Obsidian
-        if (existsTitle(filename)) {
-          const slug = titleToSlug(filename);
-          return pageLinkGenerator(filename, getPostUrl(slug));
+        const filename = `${basename}.md`;
+        if (existsFilename(filename)) {
+          const slug = filenameToSlug(filename);
+          return pageLinkGenerator(basename, getPostUrl(slug));
         }
         return alt || filename;
       }
 
       if (IMAGE_EXTENSIONS.includes(ext)) {
-        return imageLinkGenerator(filename, ext);
+        return imageLinkGenerator(basename, ext);
       } else if (SOUND_EXTENSIONS.includes(ext)) {
-        return soundLinkGenerator(filename, ext);
+        return soundLinkGenerator(basename, ext);
       } else if (MOVIE_EXTENSIONS.includes(ext)) {
-        return movieLinkGenerator(filename, ext);
+        return movieLinkGenerator(basename, ext);
       } else {
-        return alt || filename;
+        return alt || basename;
       }
     });
     return this;

@@ -7,3 +7,4 @@ thumbnail:
 createdAt: 2025-11-02
 updatedAt: 2025-11-02
 ---
+![[kuwagata.png]]

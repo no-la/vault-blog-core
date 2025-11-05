@@ -1,32 +1,32 @@
-import { PostSlug, PostTitle, SlugTitleMap } from "../../types/post";
-import _slugToTitleJson from "../../data/slug-to-title.json";
-import _titleToSlugJson from "../../data/title-to-slug.json";
+import { PostSlug, SlugFilenameMap } from "../../types/post";
+import _slugToFilenameJson from "../../data/slug-to-filename.json";
+import _filenameToSlugJson from "../../data/filename-to-slug.json";
 
-const SLUG_TO_TITLE: SlugTitleMap = _slugToTitleJson;
-const TITLE_TO_SLUG: SlugTitleMap = _titleToSlugJson;
+const SLUG_TO_FILENAME: SlugFilenameMap = _slugToFilenameJson;
+const FILENAME_TO_SLUG: SlugFilenameMap = _filenameToSlugJson;
 
-export const slugToTitle = (slug: PostSlug): PostTitle => {
-  if (!(slug in SLUG_TO_TITLE)) {
+export const slugToFilename = (slug: PostSlug): string => {
+  if (!(slug in SLUG_TO_FILENAME)) {
     throw new Error(`Not Found: slug ${slug}`);
   }
-  return SLUG_TO_TITLE[slug];
+  return SLUG_TO_FILENAME[slug];
 };
 
-export const titleToSlug = (title: PostTitle): PostSlug => {
-  if (!(title in TITLE_TO_SLUG)) {
-    throw new Error(`Not Found: title ${title}`);
+export const filenameToSlug = (filename: string): PostSlug => {
+  if (!(filename in FILENAME_TO_SLUG)) {
+    throw new Error(`Not Found: filename ${filename}`);
   }
-  return TITLE_TO_SLUG[title];
+  return FILENAME_TO_SLUG[filename];
 };
 
 export const existsSlug = (slug: PostSlug): boolean => {
-  return slug in SLUG_TO_TITLE;
+  return slug in SLUG_TO_FILENAME;
 };
 
-export const existsTitle = (title: PostTitle): boolean => {
-  return title in TITLE_TO_SLUG;
+export const existsFilename = (filename: string): boolean => {
+  return filename in FILENAME_TO_SLUG;
 };
 
 export const getAllPostSlugs = (): PostSlug[] => {
-  return Object.keys(SLUG_TO_TITLE);
+  return Object.keys(SLUG_TO_FILENAME);
 };

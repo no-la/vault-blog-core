@@ -10,6 +10,7 @@ export interface PostHtml extends PostMeta {
 export interface PostMeta {
   slug: PostSlug;
   title: PostTitle;
+  filename: string;
   tags: PostTag[];
   description?: string;
   thumbnail: string | null;
@@ -20,6 +21,7 @@ export interface PostMeta {
 export interface FrontMatter {
   slug: string;
   title?: string;
+  filename: string;
   tags?: string[];
   description?: string;
   thumbnail?: string | null;
@@ -27,7 +29,7 @@ export interface FrontMatter {
   updatedAt: string | Date;
 }
 
-export type SlugTitleMap = Record<string, string>;
+export type SlugFilenameMap = Record<string, string>;
 
 export type PostSlug = string;
 export type PostTitle = string;

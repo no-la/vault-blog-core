@@ -1,8 +1,7 @@
 import matter from "gray-matter";
 import { FrontMatter, PostMd, PostMeta, PostSlug } from "../types/post";
-import { POSTS_DIR } from "../config/path";
 import * as fs from "fs";
-import { getPostAssetUrlByFilename } from "./path-utils";
+import { getPostAssetUrlByFilename, getPostMdFilePath } from "./path-utils";
 
 export const extractFrontMatter = (filePath: string) => {
   const fileContent = fs.readFileSync(filePath, "utf-8");
@@ -10,31 +9,26 @@ export const extractFrontMatter = (filePath: string) => {
 };
 
 export const parseFrontMatter = (
-  filePath: string,
+  filename: string,
   fm: FrontMatter
 ): PostMeta => {
   return {
     slug: fm.slug,
-    title: fm.title ?? filePath.replace(".md", ""),
+    title: fm.title ?? filename.replace(".md", ""),
+    filename: filename,
     tags: fm.tags ?? [],
     description: fm.description,
-    thumbnail: fm.thumbnail ?? null,
+    thumbnail: fm.thumbnail ? convertThumbnailPath(fm.thumbnail) : null,
     createdAt: new Date(fm.createdAt),
     updatedAt: new Date(fm.updatedAt),
   };
 };
 
-export const getPostMd = (slug: string, title: string): PostMd => {
-  const { content, data } = extractFrontMatter(`${POSTS_DIR}/${title}.md`);
+export const getPostMd = (filename: string): PostMd => {
+  const { content, data } = extractFrontMatter(getPostMdFilePath(filename));
   return {
-    slug: slug,
-    title: title,
     contentMd: content,
-    tags: data.tags ?? [],
-    description: data.description,
-    thumbnail: convertThumbnailPath(data.thumbnail),
-    createdAt: new Date(data.createdAt),
-    updatedAt: new Date(data.updatedAt),
+    ...parseFrontMatter(filename, data as FrontMatter),
   };
 };
 
@@ -53,9 +47,9 @@ const convertThumbnailPath = (thumbnailFm: string): string | null => {
   const p1 = match[1];
   const ext = match[2];
   const parts = p1.split("|");
-  const fileName = `${parts[0]}.${ext}`;
+  const filename = `${parts[0]}.${ext}`;
 
-  return getPostAssetUrlByFilename(fileName);
+  return getPostAssetUrlByFilename(filename);
 };
 
 export const allEmbedWikiLinksRegex = (): RegExp => {
@@ -68,10 +62,10 @@ export const allWikiLinksRegex = (): RegExp => {
 
 export const parseWikiLinkContent = (
   content: string
-): { filename: string; ext: string | null; alt: string | null } => {
+): { basename: string; ext: string | null; alt: string | null } => {
   const parts = content.split("|");
   const pathData = parts[0].split(".");
-  const filename = pathData[0];
+  const basename = pathData[0];
   let alt = null;
   let ext = null;
   if (parts.length >= 2) {
@@ -80,8 +74,7 @@ export const parseWikiLinkContent = (
   if (pathData.length > 1) {
     ext = pathData[parts.length];
   }
-  console.log({ filename, ext, alt });
-  return { filename, ext, alt };
+  return { basename, ext, alt };
 };
 
 export const escapeHtml = (unsafe: string): string => {
@@ -96,30 +89,30 @@ export const escapeHtml = (unsafe: string): string => {
 export const embedPageGenerator = (alt: string, url: PostSlug): string => {
   return pageLinkGenerator(alt, url);
 };
-export const embedImageGenerator = (filename: string, ext: string): string => {
-  const filePath = `${filename}.${ext}`;
-  const url = getPostAssetUrlByFilename(filePath);
-  return `![${filename}](${url})`;
+export const embedImageGenerator = (basename: string, ext: string): string => {
+  const filename = `${basename}.${ext}`;
+  const url = getPostAssetUrlByFilename(filename);
+  return `![${basename}](${url})`;
 };
-export const embedSoundGenerator = (filename: string, ext: string): string => {
-  const filePath = `${filename}.${ext}`;
-  const url = getPostAssetUrlByFilename(filePath);
+export const embedSoundGenerator = (basename: string, ext: string): string => {
+  const filename = `${basename}.${ext}`;
+  const url = getPostAssetUrlByFilename(filename);
   return `<audio src="${url}" controls></audio>`;
 };
-export const embedMovieGenerator = (filename: string, ext: string): string => {
-  const filePath = `${filename}.${ext}`;
-  const url = getPostAssetUrlByFilename(filePath);
+export const embedMovieGenerator = (basename: string, ext: string): string => {
+  const filename = `${basename}.${ext}`;
+  const url = getPostAssetUrlByFilename(filename);
   return `<video src="${url}" controls></video>`;
 };
 export const pageLinkGenerator = (alt: string, url: PostSlug): string => {
   return `[${alt}](${url})`;
 };
-export const imageLinkGenerator = (filename: string, ext: string): string => {
-  return embedImageGenerator(filename, ext);
+export const imageLinkGenerator = (basename: string, ext: string): string => {
+  return embedImageGenerator(basename, ext);
 };
-export const soundLinkGenerator = (filename: string, ext: string): string => {
-  return embedSoundGenerator(filename, ext);
+export const soundLinkGenerator = (basename: string, ext: string): string => {
+  return embedSoundGenerator(basename, ext);
 };
-export const movieLinkGenerator = (filename: string, ext: string): string => {
-  return embedMovieGenerator(filename, ext);
+export const movieLinkGenerator = (basename: string, ext: string): string => {
+  return embedMovieGenerator(basename, ext);
 };

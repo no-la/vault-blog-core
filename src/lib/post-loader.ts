@@ -1,10 +1,10 @@
 import { getPostMd } from "../../lib/markdown-utils";
 import { PostHtml, PostMeta } from "../../types/post";
 import { markdownToHtml } from "./markdown-to-html";
-import { getAllPostSlugs, slugToTitle } from "./slug-map";
+import { getAllPostSlugs, slugToFilename } from "./slug-map";
 
 export const getPostHtml = async (slug: string): Promise<PostHtml> => {
-  const postMd = getPostMd(slug, slugToTitle(slug));
+  const postMd = getPostMd(slugToFilename(slug));
   const contentHtml = await markdownToHtml(postMd.contentMd);
   const postHtml: PostHtml = {
     ...postMd,
@@ -36,5 +36,5 @@ const generateDescription = (
 
 export const getAllPostMetas = (): PostMeta[] => {
   const allSlugs = getAllPostSlugs();
-  return allSlugs.map((slug) => getPostMd(slug, slugToTitle(slug)));
+  return allSlugs.map((slug) => getPostMd(slugToFilename(slug)));
 };

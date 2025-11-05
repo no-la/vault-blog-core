@@ -14,8 +14,8 @@ import { canPublish } from "../config/can-publish";
 import { extractFrontMatter, parseFrontMatter } from "../lib/markdown-utils";
 import { DATA_DIR, POST_SOURCE_DIR, POSTS_DIR } from "../config/path";
 
-const titleToSlug: Record<string, PostSlug> = {};
-const slugToTitle: Record<PostSlug, string> = {};
+const filenameToSlug: Record<string, PostSlug> = {};
+const slugToFilename: Record<PostSlug, string> = {};
 const slugToMetadata: Record<PostSlug, PostMeta> = {};
 const tagToSlugs: Record<PostTag, PostSlug[]> = {};
 
@@ -33,48 +33,58 @@ const main = () => {
   initSourceDestDir();
 
   // SOURCE_DIR 内の全アイテムを DEST_DIR にコピー
-  fs.readdirSync(POST_SOURCE_DIR).forEach((item: string) => {
-    const srcPath = path.join(POST_SOURCE_DIR, item);
-    const destPath = path.join(POSTS_DIR, item);
+  fs.readdirSync(POST_SOURCE_DIR).forEach((filename: string) => {
+    const srcPath = path.join(POST_SOURCE_DIR, filename);
+    const destPath = path.join(POSTS_DIR, filename);
 
     // validate front matter
     const { data, content } = extractFrontMatter(srcPath);
     if (!canPublish(data)) {
       console.log(
-        `Skipping unpublished post: ${item} because your canPublish function returned false.`
+        `Skipping unpublished post: ${filename} because your canPublish function returned false.`
       );
       return;
     }
 
-    const meta = parseFrontMatter(item, data as FrontMatter);
+    const meta = parseFrontMatter(filename, data as FrontMatter);
 
     if (!meta.slug) {
-      console.warn(`Warning: Post "${item}" is missing a slug. Skipping.`);
+      console.warn(`Warning: Post "${filename}" is missing a slug. Skipping.`);
       return;
     }
     if (!isValidSlug(meta.slug)) {
-      console.warn(`Warning: Post "${item}" has unvalid slug. Skipping.`);
+      console.warn(`Warning: Post "${filename}" has unvalid slug. Skipping.`);
+      return;
+    }
+    if (!meta.filename) {
+      console.warn(
+        `Warning: Post "${filename}" is missing a filename. Skipping.`
+      );
       return;
     }
     if (!meta.createdAt) {
-      console.warn(`Warning: Post "${item}" is missing a createdAt. Skipping.`);
+      console.warn(
+        `Warning: Post "${filename}" is missing a createdAt. Skipping.`
+      );
       return;
     }
     if (!meta.updatedAt) {
-      console.warn(`Warning: Post "${item}" is missing a updatedAt. Skipping.`);
+      console.warn(
+        `Warning: Post "${filename}" is missing a updatedAt. Skipping.`
+      );
       return;
     }
     if (Object.keys(slugToMetadata).includes(meta.slug)) {
       console.warn(
-        `Warning: Post "${item}" has duplicate slug with ${meta.slug} of "${
+        `Warning: Post "${filename}" has duplicate slug with ${meta.slug} of "${
           slugToMetadata[meta.slug].title
         }". Skipping.`
       );
       return;
     }
 
-    slugToTitle[meta.slug] = meta.title;
-    titleToSlug[meta.title] = data.slug;
+    slugToFilename[meta.slug] = meta.filename;
+    filenameToSlug[meta.filename] = meta.slug;
     slugToMetadata[meta.slug] = meta;
     meta.tags.forEach((tag: PostTag) => {
       if (!tagToSlugs[tag]) {
@@ -93,8 +103,14 @@ const main = () => {
     fs.cpSync(srcPath, destPath, { recursive: true });
   });
 
-  overwriteJsonFile(path.join(DATA_DIR, "slug-to-title.json"), slugToTitle);
-  overwriteJsonFile(path.join(DATA_DIR, "title-to-slug.json"), titleToSlug);
+  overwriteJsonFile(
+    path.join(DATA_DIR, "slug-to-filename.json"),
+    slugToFilename
+  );
+  overwriteJsonFile(
+    path.join(DATA_DIR, "filename-to-slug.json"),
+    filenameToSlug
+  );
   overwriteJsonFile(path.join(DATA_DIR, "tag-to-slugs.json"), tagToSlugs);
 };
 
