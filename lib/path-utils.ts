@@ -1,7 +1,6 @@
 import * as fs from "fs";
 import path from "path";
 import { POST_ASSET_DEST_DIR, POSTS_DIR, PUBLIC_DIR } from "../config/path";
-import { PostTitle } from "../types/post";
 
 export const existsPostAsset = (fileName: string): boolean => {
   return fs.existsSync(path.join(POST_ASSET_DEST_DIR, fileName));
