@@ -10,8 +10,8 @@ import {
   collectMovieFiles,
   collectThumbnailFile,
 } from "./collect-source-files";
-import { parseFrontMatter, extractFrontMatter } from "../lib/parse-post";
 import { canPublish } from "../config/can-publish";
+import { extractFrontMatter, parseFrontMatter } from "../lib/markdown-utils";
 
 const SOURCE_DIR = process.env.POSTS_SOURCE_DIR;
 if (!SOURCE_DIR) {
