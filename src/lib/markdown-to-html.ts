@@ -1,6 +1,7 @@
 import markdownit from "markdown-it";
 import { existsFilename, filenameToSlug } from "./slug-map";
 import {
+  allCodeBlocksSimpleRegex,
   allEmbedWikiLinksRegex,
   allWikiLinksRegex,
   embedImageGenerator,
@@ -23,18 +24,24 @@ import { getPostUrl } from "../../lib/path-utils";
 
 export const markdownToHtml = async (markdown: string): Promise<string> => {
   const result = new ConvertingMarkdown(markdown)
+    .escapeCodeBlocks()
     .convertCardlinkBlocks()
     .convertEmbedWikiLinks()
     .convertWikiLinks()
-    .convertEmbedLinks()
+    .convertEmbedLinks() // ← ここでYouTube/Twitter両方対応
     .converCallouts()
+    .restoreCodeBlocks()
     .mdRender()
     .toString();
   return result;
 };
 
 class ConvertingMarkdown {
-  constructor(private content: string) {}
+  private codeBlocks: string[] = [];
+
+  constructor(private content: string) {
+    this.content = content;
+  }
 
   toString(): string {
     return this.content;
@@ -53,7 +60,6 @@ class ConvertingMarkdown {
         const { basename, ext, alt } = parseWikiLinkContent(p1);
 
         if (ext === null) {
-          // This is .md in Obsidian
           const filename = `${basename}.md`;
           if (existsFilename(filename)) {
             const slug = filenameToSlug(filename);
@@ -81,7 +87,6 @@ class ConvertingMarkdown {
       const { basename, ext, alt } = parseWikiLinkContent(p1);
 
       if (ext === null) {
-        // This is .md in Obsidian
         const filename = `${basename}.md`;
         if (existsFilename(filename)) {
           const slug = filenameToSlug(filename);
@@ -112,7 +117,7 @@ class ConvertingMarkdown {
           const match = line.match(/^(\w+):\s*(.+)$/);
           if (match) {
             const [, key, value] = match;
-            data[key] = value.replace(/^"|"$/g, ""); // 両端の " を除去
+            data[key] = value.replace(/^"|"$/g, "");
           }
         });
 
@@ -168,57 +173,76 @@ class ConvertingMarkdown {
 
   convertEmbedLinks(): ConvertingMarkdown {
     this.content = this.content.replace(
-      /!\[(.+?)\]\((.+?)\)/g,
+      /!\[(.*?)\]\((.+?)\)/g,
       (match, alt, url) => {
-        const embedYoutubeUrl = embeddableYouTubeUrl(url);
-        if (!embedYoutubeUrl) {
-          return match;
-        }
+        const embed = getEmbed(url, alt);
+        if (!embed) return match;
 
-        return `
+        switch (embed.platform) {
+          case "youtube":
+            return `
 <div class="embed-youtube-container">
-<iframe
-  src="${embedYoutubeUrl}"
-  frameborder="0"
-  allowfullscreen
-  title="YouTube Video${alt ? `: ${alt}` : ""}"
-  class="embed-youtube-video"
-></iframe>
-</div>
-`;
+  <iframe
+    src="${embed.embedUrl}"
+    frameborder="0"
+    allowfullscreen
+    title="YouTube Video${embed.alt ? `: ${embed.alt}` : ""}"
+    class="embed-youtube-video"
+  ></iframe>
+</div>`;
+        }
       }
+    );
+    return this;
+  }
+
+  escapeCodeBlocks(): ConvertingMarkdown {
+    this.content = this.content.replace(allCodeBlocksSimpleRegex(), (block) => {
+      const index = this.codeBlocks.length;
+      this.codeBlocks.push(block);
+      return `@@CODE_BLOCK_${index}@@`; // placeholder
+    });
+    return this;
+  }
+
+  restoreCodeBlocks(): ConvertingMarkdown {
+    this.content = this.content.replace(
+      /@@CODE_BLOCK_(\d+)@@/g,
+      (_, index) => this.codeBlocks[Number(index)]
     );
     return this;
   }
 }
 
-const embeddableYouTubeUrl = (url: string): string | null => {
+// 共通Embed判定
+type EmbedPlatform = "youtube";
+
+interface Embed {
+  platform: EmbedPlatform;
+  embedUrl: string;
+  alt?: string;
+}
+
+const getEmbed = (url: string, alt?: string): Embed | null => {
+  const youtubeUrl = parseYouTubeUrl(url);
+  if (youtubeUrl) return { platform: "youtube", embedUrl: youtubeUrl, alt };
+
+  return null;
+};
+
+// YouTube埋め込みURL
+const parseYouTubeUrl = (url: string): string | null => {
   try {
     const u = new URL(url);
-    const hostname = u.hostname.toLowerCase();
-
-    // YouTubeのドメインかチェック
-    if (
-      hostname !== "www.youtube.com" &&
-      hostname !== "youtube.com" &&
-      hostname !== "youtu.be"
-    ) {
+    const host = u.hostname.toLowerCase();
+    if (!["www.youtube.com", "youtube.com", "youtu.be"].includes(host)) {
       return null;
     }
 
-    let videoId = null;
+    const videoId = host.includes("youtu.be")
+      ? u.pathname.slice(1)
+      : u.searchParams.get("v");
 
-    // youtube.com/watch?v=xxxx
-    if (hostname.includes("youtube.com")) {
-      videoId = u.searchParams.get("v");
-    }
-
-    // youtu.be/xxxx
-    if (hostname === "youtu.be") {
-      videoId = u.pathname.slice(1); // 先頭の / を削除
-    }
-
-    // 動画IDが取得できれば埋め込み可能
     return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
   } catch {
     return null;

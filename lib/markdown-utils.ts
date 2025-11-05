@@ -52,6 +52,10 @@ const convertThumbnailPath = (thumbnailFm: string): string | null => {
   return getPostAssetUrlByFilename(filename);
 };
 
+export const allCodeBlocksSimpleRegex = (): RegExp => {
+  return new RegExp("```[\\s\\S]*?```", "g");
+};
+
 export const allEmbedWikiLinksRegex = (): RegExp => {
   return new RegExp("!\\[\\[(.+?)\\]\\]", "g");
 };
