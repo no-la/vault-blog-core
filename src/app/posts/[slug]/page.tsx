@@ -4,7 +4,7 @@ import styles from "./post.module.css";
 import Link from "next/link";
 import Tag from "@/component/tag";
 import { Metadata } from "next";
-import { DEFAULT_METADATA } from "@/config/metadata";
+import { DEFAULT_METADATA, gnerateMetadataTitle } from "@/config/metadata";
 import { getPostUrl, getTagUrl } from "../../../../lib/path-utils";
 
 export const generateStaticParams = (): { slug: PostSlug }[] => {
@@ -16,21 +16,16 @@ export async function generateMetadata({
 }: {
   params: { slug: PostSlug };
 }): Promise<Metadata> {
-  const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await getPostBySlug((await params).slug);
 
-  let data: Metadata = { ...DEFAULT_METADATA, ...{ title: post.title } };
-  if (post.description) {
-    data = {
-      ...data,
-      openGraph: { ...data.openGraph, description: post.description },
-    };
-  }
-  if (post.thumbnail) {
-    data = {
-      ...data,
-      openGraph: {
-        ...data.openGraph,
+  const data: Metadata = {
+    ...DEFAULT_METADATA,
+    title: gnerateMetadataTitle(post.title),
+    openGraph: {
+      ...DEFAULT_METADATA.openGraph,
+      title: post.title,
+      ...(post.description && { description: post.description }),
+      ...(post.thumbnail && {
         images: [
           {
             url: post.thumbnail,
@@ -38,9 +33,10 @@ export async function generateMetadata({
             height: 630,
           },
         ],
-      },
-    };
-  }
+      }),
+    },
+  };
+
   return data;
 }
 

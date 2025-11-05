@@ -13,3 +13,7 @@ export const DEFAULT_METADATA: Metadata = {
     ],
   },
 };
+
+export const gnerateMetadataTitle = (title: string): string => {
+  return title ? `${title} | Vault Blog Core` : "Vault Blog Core";
+};
