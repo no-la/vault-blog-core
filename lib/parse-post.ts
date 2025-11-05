@@ -4,6 +4,11 @@ import { POSTS_DIR } from "../config/path";
 import * as fs from "fs";
 import { publicFileNameToUrl } from "./path-utils";
 
+export const parseMarkdown = (filePath: string) => {
+  const fileContent = fs.readFileSync(filePath, "utf-8");
+  return matter(fileContent);
+};
+
 export const parseFrontMatter = (
   filePath: string,
   fm: FrontMatter

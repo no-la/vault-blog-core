@@ -11,7 +11,7 @@ import {
   collectMovieFiles,
   collectThumbnailFile,
 } from "./collect-source-files";
-import { parseFrontMatter } from "../lib/parse-post";
+import { parseFrontMatter, parseMarkdown } from "../lib/parse-post";
 import { canPublish } from "../config/can-publish";
 
 const SOURCE_DIR = process.env.POSTS_SOURCE_DIR;
@@ -29,10 +29,6 @@ const slugToTitle: Record<PostSlug, string> = {};
 const slugToMetadata: Record<PostSlug, PostMeta> = {};
 const tagToSlugs: Record<PostTag, PostSlug[]> = {};
 
-const getMdDatas = (filePath: string) => {
-  const fileContent = fs.readFileSync(filePath, "utf-8");
-  return matter(fileContent);
-};
 const isValidSlug = (slug: PostSlug) => /^[a-z0-9-]+$/.test(slug);
 const initPostsDestDir = () => {
   fs.rmSync(DEST_DIR, { recursive: true, force: true });
@@ -52,7 +48,7 @@ const main = () => {
     const destPath = path.join(DEST_DIR, item);
 
     // validate front matter
-    const { data, content } = getMdDatas(srcPath);
+    const { data, content } = parseMarkdown(srcPath);
     if (!canPublish(data)) {
       console.log(
         `Skipping unpublished post: ${item} because your canPublish function returned false.`
