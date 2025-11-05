@@ -5,6 +5,15 @@ import {
   existsPublicFile,
   publicFileNameToUrl,
 } from "../../lib/path-utils";
+import {
+  embedSourceWikiLinksRegex,
+  escapeHtml,
+} from "../../lib/markdown-utils";
+import {
+  IMAGE_EXTENSIONS,
+  MOVIE_EXTENSIONS,
+  SOUND_EXTENSIONS,
+} from "../../config/extensions";
 
 export const markdownToHtml = async (markdown: string): Promise<string> => {
   const result = new ConvertingMarkdown(markdown)
@@ -17,10 +26,6 @@ export const markdownToHtml = async (markdown: string): Promise<string> => {
     .mdRender()
     .toString();
   return result;
-};
-
-const sourceWikiLinksRegex = (exts: string[]): RegExp => {
-  return new RegExp(`!\\[\\[(.+?)\\.(${exts.join("|")})\\]\\]`, "gi");
 };
 
 const embedImageGenerator = (filename: string, ext: string): string => {
@@ -38,14 +43,7 @@ const embedMovieGenerator = (filename: string, ext: string): string => {
   const url = publicFileNameToUrl(filePath);
   return `<video src="${url}" controls></video>`;
 };
-const escapeHtml = (unsafe: string): string => {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-};
+
 class ConvertingMarkdown {
   constructor(private content: string) {}
 
@@ -76,19 +74,13 @@ class ConvertingMarkdown {
   }
 
   convertImageWikiLinks(): ConvertingMarkdown {
-    return this.convertSourceWikiLinks(
-      ["png", "jpg", "jpeg", "gif"],
-      embedImageGenerator
-    );
+    return this.convertSourceWikiLinks(IMAGE_EXTENSIONS, embedImageGenerator);
   }
   convertSoundWikiLinks(): ConvertingMarkdown {
-    return this.convertSourceWikiLinks(["mp3", "wav"], embedSoundGenerator);
+    return this.convertSourceWikiLinks(SOUND_EXTENSIONS, embedSoundGenerator);
   }
   convertMovieWikiLinks(): ConvertingMarkdown {
-    return this.convertSourceWikiLinks(
-      ["mp4", "mov", "avi"],
-      embedMovieGenerator
-    );
+    return this.convertSourceWikiLinks(MOVIE_EXTENSIONS, embedMovieGenerator);
   }
 
   convertSourceWikiLinks(
@@ -96,7 +88,7 @@ class ConvertingMarkdown {
     embedElemGenerator: (filename: string, ext: string) => string
   ): ConvertingMarkdown {
     this.content = this.content.replace(
-      sourceWikiLinksRegex(exts),
+      embedSourceWikiLinksRegex(exts),
       (match, p1, ext) => {
         const fileName = encodeForURI(p1);
         const filePath = `${fileName}.${ext}`;
