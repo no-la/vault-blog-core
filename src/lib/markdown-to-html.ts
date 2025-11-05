@@ -49,7 +49,7 @@ class ConvertingMarkdown {
   }
 
   mdRender(): ConvertingMarkdown {
-    const md = markdownit({ html: true });
+    const md = markdownit({ html: true, breaks: true });
     this.content = md.render(this.toString());
     return this;
   }
