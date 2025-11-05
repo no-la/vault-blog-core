@@ -2,12 +2,12 @@ import Link from "next/link";
 import styles from "./page.module.css";
 import { getRecentPosts } from "@/lib/blog-utils";
 import PostList from "@/component/post-list";
+import Image from "next/image";
 
 export const metadata = {
   openGraph: {
-    title: "Obsidian Blog",
-    description:
-      "Obsidian上のノートを静的ビルドし、ブログとして公開するためのフレームワーク。",
+    title: "Vault Blog Core",
+    description: "Markdownファイル群をブログとして公開するためのフレームワーク",
     images: [
       {
         url: "/images/ogp-main.jpg", // 🌟 静的画像の指定
@@ -30,7 +30,14 @@ export default async function Home() {
 
   return (
     <div className={styles.container}>
-      <h1>Obsidian Blog</h1>
+      <Image
+        src="/images/ogp-main.jpg"
+        alt="Vault Blog Thumbnail"
+        width={1200}
+        height={630}
+        className={styles.thumbnail}
+      />
+      <h1>Vault Blog Core</h1>
       <p className={styles.catchcopy}>
         Markdownで運用できる静的ブログテンプレート
       </p>

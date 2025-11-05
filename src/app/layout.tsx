@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Obsidian Blog",
-  description: "A Sapmle of Obsidina Blog",
+  title: "Vault Blog Core",
+  description: "A Sapmle of Vault Blog Core",
 };
 
 export default function RootLayout({
@@ -37,7 +37,7 @@ export default function RootLayout({
               height={40}
               className="logo"
             />
-            <h1 className="title">Obsidian Blog</h1>
+            <h1 className="title">Vault Blog Core</h1>
           </Link>
           <nav>
             <ul className="nav-ul">

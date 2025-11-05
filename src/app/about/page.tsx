@@ -19,10 +19,10 @@ export default function About() {
 
   return (
     <div className={styles.container}>
-      <h1>プロジェクト詳細: Obsidian Blog</h1>
+      <h1>プロジェクト詳細 </h1>
 
       <section className={styles.section}>
-        <h2>プロジェクト概要</h2>
+        <h2>概要</h2>
         <p>
           このフレームワークは、Markdownで記事を書くだけで静的ブログを構築できるNext.jsテンプレートです。
           記事はSSGで生成され、高速表示が可能です。タグ・ページネーションも対応しています。
