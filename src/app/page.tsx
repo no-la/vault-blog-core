@@ -1,8 +1,8 @@
 import Link from "next/link";
 import styles from "./page.module.css";
 import { getRecentPosts } from "@/lib/blog-utils";
-import PostList from "@/component/post-list";
-import PageThumbnail from "@/component/page-thumbnail";
+import PostList from "@/components/post-list";
+import PageThumbnail from "@/components/page-thumbnail";
 import { getAboutUrl, getPostsUrl } from "../../lib/path-utils";
 
 export default async function Home() {

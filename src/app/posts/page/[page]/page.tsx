@@ -1,5 +1,5 @@
 import { getAllSlugs, getPaginatedPosts } from "@/lib/blog-utils";
-import PaginatedPosts from "@/component/paginated-posts";
+import PaginatedPosts from "@/components/paginated-posts";
 import { POST_PER_PAGE } from "@/config/pagination";
 import { notFound, redirect } from "next/navigation";
 import { getPostsUrl } from "../../../../../lib/path-utils";

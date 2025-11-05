@@ -1,5 +1,5 @@
-import PostList from "@/component/post-list";
-import Tag from "@/component/tag";
+import PostList from "@/components/post-list";
+import Tag from "@/components/tag";
 import { getAllTags, getPostsByTag } from "@/lib/blog-utils";
 import { PostTag } from "../../../../types/post";
 

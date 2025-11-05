@@ -1,4 +1,4 @@
-import Tag from "@/component/tag";
+import Tag from "@/components/tag";
 import { getAllTags, getPostCountByTag } from "@/lib/blog-utils";
 import Link from "next/link";
 import styles from "./tags.module.css";

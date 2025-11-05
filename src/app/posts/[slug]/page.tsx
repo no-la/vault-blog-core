@@ -2,7 +2,7 @@ import { getAllSlugs, getPostBySlug, getRelatedPosts } from "@/lib/blog-utils";
 import { PostSlug } from "../../../../types/post";
 import styles from "./post.module.css";
 import Link from "next/link";
-import Tag from "@/component/tag";
+import Tag from "@/components/tag";
 import { Metadata } from "next";
 import { DEFAULT_METADATA, gnerateMetadataTitle } from "@/config/metadata";
 import { getPostUrl, getTagUrl } from "../../../../lib/path-utils";
