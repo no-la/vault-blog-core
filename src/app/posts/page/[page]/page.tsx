@@ -1,27 +1,31 @@
 import { getAllSlugs, getPaginatedPosts } from "@/lib/blog-utils";
 import PaginatedPosts from "@/component/paginated-posts";
 import { POST_PER_PAGE } from "@/config/pagination";
+import { notFound, redirect } from "next/navigation";
 
 export const generateStaticParams = (): { page: string }[] => {
-  const pageNum = Math.ceil(getAllSlugs().length / POST_PER_PAGE);
-  return [...Array(pageNum).keys()].map((page) => ({
-    page: "" + (page + 1),
+  const totalPages = Math.ceil(getAllSlugs().length / POST_PER_PAGE);
+  return [...Array(totalPages - 1).keys()].map((page) => ({
+    page: String(page + 2),
   }));
 };
 
-export default async function BlogPost({
+export default async function BlogPosts({
   params,
 }: {
   params: { page: string };
 }) {
   const page = parseInt((await params).page);
+  const totalPages = Math.ceil(getAllSlugs().length / POST_PER_PAGE);
+
+  if (page === 1) {
+    return redirect("/posts");
+  }
+  if (page < 2 || page > totalPages) {
+    notFound();
+  }
+
   const posts = await getPaginatedPosts(page, POST_PER_PAGE);
 
-  return (
-    <PaginatedPosts
-      posts={posts}
-      page={page}
-      totalPages={Math.ceil(getAllSlugs().length / POST_PER_PAGE)}
-    />
-  );
+  return <PaginatedPosts posts={posts} page={page} totalPages={totalPages} />;
 }

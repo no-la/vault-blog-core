@@ -45,8 +45,9 @@ const PaginatedPosts = ({
           gap: "3rem",
         }}
       >
-        <Link href="/posts/page/1">最初のページ</Link>
-        {page - 1 > 0 && <Link href={`/posts/page/${page - 1}`}>前へ</Link>}
+        <Link href="/posts">最初のページ</Link>
+        {page - 1 > 1 && <Link href={`/posts/page/${page - 1}`}>前へ</Link>}
+        {page - 1 === 1 && <Link href={`/posts`}>前へ</Link>}
         {page + 1 <= totalPages && (
           <Link href={`/posts/page/${page + 1}`}>次へ</Link>
         )}

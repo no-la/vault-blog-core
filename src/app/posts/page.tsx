@@ -1,14 +1,11 @@
-import { getAllPostsSortedByCreatedAt } from "@/lib/blog-utils";
-import styles from "./posts.module.css";
-import PostList from "@/component/post-list";
+import { getAllSlugs, getPaginatedPosts } from "@/lib/blog-utils";
+import PaginatedPosts from "@/component/paginated-posts";
+import { POST_PER_PAGE } from "@/config/pagination";
 
 export default async function Posts() {
-  const allPosts = await getAllPostsSortedByCreatedAt();
+  const page = 1;
+  const posts = await getPaginatedPosts(page, POST_PER_PAGE);
+  const tottalPages = Math.ceil(getAllSlugs().length / POST_PER_PAGE);
 
-  return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>投稿一覧</h1>
-      <PostList posts={allPosts} />
-    </div>
-  );
+  return <PaginatedPosts posts={posts} page={page} totalPages={tottalPages} />;
 }
