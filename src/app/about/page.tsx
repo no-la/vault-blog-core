@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./about.module.css";
-import { getHomeUrl } from "../../../lib/path-utils";
+import { getHomeUrl, getPostsUrl } from "../../../lib/path-utils";
 
 export default function About() {
   const techStack = [
@@ -54,7 +54,7 @@ export default function About() {
         <h2>サンプル使い方</h2>
         <ul>
           <li>
-            <code>/posts/</code> 配下に Markdown
+            <code>/{getPostsUrl()}/</code> 配下に Markdown
             を置くだけで記事が表示されます。
           </li>
           <li>タグページやカテゴリーページも自動生成されます。</li>
