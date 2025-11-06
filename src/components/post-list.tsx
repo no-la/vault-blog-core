@@ -6,7 +6,9 @@ const PostList = ({ posts }: { posts: PostHtml[] }) => {
   return (
     <ul className={styles.list}>
       {posts.map((post) => (
-        <PostCard key={post.slug} post={post} />
+        <li key={post.slug} className={styles.item}>
+          <PostCard post={post} />
+        </li>
       ))}
     </ul>
   );
