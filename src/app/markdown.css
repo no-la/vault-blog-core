@@ -129,7 +129,7 @@ blockquote > :last-child {
 }
 
 .cardlink-image {
-  width: 120px;
+  width: 30%;
   object-fit: cover;
   flex-shrink: 0;
 }
