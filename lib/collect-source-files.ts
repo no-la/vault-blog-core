@@ -50,29 +50,14 @@ const collectSourceFiles = (
     collectSourceFile(srcPath, destPath);
   }
 };
-export const collectThumbnailFile = (thumbnailFm: string) => {
-  if (!thumbnailFm) {
+export const collectThumbnailFile = (filename: string) => {
+  if (!filename) {
     return;
   }
-  const regex = new RegExp(`\\[\\[(.+?)\\.(png|jpg|gif)\\]\\]`);
-  const match = thumbnailFm.match(regex);
-
-  if (!match) {
-    return;
-  }
-
-  const p1 = match[1];
-  const ext = match[2];
-  const parts = p1.split("|");
-  const fileName = `${parts[0]}.${ext}`;
-  const srcPath = path.join(THUMBNAIL_SOURCE_DIR, fileName);
-  const destPath = path.join(POST_ASSET_DEST_DIR, encodeForURI(fileName));
+  const srcPath = path.join(THUMBNAIL_SOURCE_DIR, filename);
+  const destPath = path.join(POST_ASSET_DEST_DIR, encodeForURI(filename));
 
   collectSourceFile(srcPath, destPath);
-
-  if (ext === "gif" || ext === "png") {
-    console.warn(`Large file: ${srcPath} success BUT You should use jpg.`);
-  }
 };
 const collectSourceFile = (srcPath: string, destPath: string) => {
   if (!fs.existsSync(srcPath)) {

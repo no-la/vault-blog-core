@@ -18,7 +18,7 @@ export const parseFrontMatter = (
     filename: filename,
     tags: fm.tags ?? [],
     description: fm.description,
-    thumbnail: fm.thumbnail ? convertThumbnailPath(fm.thumbnail) : null,
+    thumbnail: fm.thumbnail ? getThumbnailFilename(fm.thumbnail) : null,
     createdAt: new Date(fm.createdAt),
     updatedAt: new Date(fm.updatedAt),
   };
@@ -32,7 +32,7 @@ export const getPostMd = (filename: string): PostMd => {
   };
 };
 
-const convertThumbnailPath = (thumbnailFm: string): string | null => {
+const getThumbnailFilename = (thumbnailFm: string): string | null => {
   if (!thumbnailFm) {
     return null;
   }
@@ -49,7 +49,7 @@ const convertThumbnailPath = (thumbnailFm: string): string | null => {
   const parts = p1.split("|");
   const filename = `${parts[0]}.${ext}`;
 
-  return getPostAssetUrlByFilename(filename);
+  return filename;
 };
 
 export const allCodeBlocksSimpleRegex = (): RegExp => {
