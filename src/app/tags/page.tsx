@@ -2,6 +2,7 @@ import Tag from "@/components/tag";
 import { getAllTags, getPostCountByTag } from "@/lib/blog-utils";
 import Link from "next/link";
 import styles from "./tags.module.css";
+import { getTagUrl } from "../../../lib/path-utils";
 
 export default function Tags() {
   const tags = getAllTags();
@@ -12,7 +13,7 @@ export default function Tags() {
         <ul className={styles.tagList}>
           {tags.map((tag) => (
             <li key={tag}>
-              <Link href={`/tags/${tag}`} className={styles.tagLink}>
+              <Link href={getTagUrl(tag)} className={styles.tagLink}>
                 <Tag>{`#${tag} (${getPostCountByTag(tag)}件)`}</Tag>
               </Link>
             </li>
