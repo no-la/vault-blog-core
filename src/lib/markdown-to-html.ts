@@ -24,10 +24,12 @@ import { getPostUrl } from "../../lib/path-utils";
 
 export const markdownToHtml = async (markdown: string): Promise<string> => {
   const result = new ConvertingMarkdown(markdown)
+    .convertTabToSpaces()
+    .escapeCodeBlocks()
     .converCallouts()
     .convertEmbedLinks()
     .convertCardlinkBlocks()
-    .convertTabToSpaces()
+    .restoreCodeBlocks()
     .mdRender()
     .escapeHtmlCodeBlocks()
     .convertEmbedWikiLinks()
