@@ -3,15 +3,16 @@ slug: deploy-to-vercel
 title:
 published: true
 tags:
-  - Introduce
   - setup
+  - usage
+  - introduce
 description:
 thumbnail:
 createdAt: 2025-11-06T17:17:27+09:00
 updatedAt: 2025-11-06T17:17:27+09:00
 ---
 
-[[Next.js]]のプロジェクトはVercelにデプロイするのが良いらしく、このサイトもVercelにデプロイしています。
+Next.js のプロジェクトは Vercel にデプロイするのが便利らしく、このサイトも Vercel にデプロイしています。
 
 そこで、Vault Blog Coreの導入手順で用意したプロジェクトをVercelにデプロイするまでの流れを、簡易的にですが、紹介しておきます。
 
@@ -35,3 +36,5 @@ Vercel にログインし、画面の指示に従って Create New Project し�
 
 デプロイが完了すると、指定した URL でサイトを確認できるようになります。 
 これで公開までの準備は完了です！🎉
+
+`git push` したら自動でデプロイしてくれるはずです！

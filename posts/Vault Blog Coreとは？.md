@@ -3,7 +3,7 @@ slug: introduce
 title: Vault Blog Coreとは？
 published: true
 tags:
-  - Introduce
+  - introduce
 description: Vault Blog Core の概要と特徴を紹介する記事です。
 thumbnail: "[[ogp-main.jpg]]"
 createdAt: 2025-11-05T22:41:48+09:00

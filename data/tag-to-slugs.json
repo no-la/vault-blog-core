@@ -5,14 +5,26 @@
     "embed-youtube-sample",
     "card-link-sample"
   ],
-  "Introduce": [
+  "introduce": [
     "introduce",
     "how-to-setup",
     "deploy-to-vercel",
-    "introduce-detail"
+    "introduce-detail",
+    "how-to-post",
+    "post-frontmatter"
   ],
   "setup": [
     "how-to-setup",
     "deploy-to-vercel"
+  ],
+  "usage": [
+    "how-to-setup",
+    "deploy-to-vercel",
+    "remark-file-path",
+    "how-to-post",
+    "post-frontmatter"
+  ],
+  "remark": [
+    "remark-file-path"
   ]
 }

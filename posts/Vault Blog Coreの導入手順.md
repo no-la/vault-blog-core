@@ -3,8 +3,9 @@ slug: how-to-setup
 title:
 published: true
 tags:
-  - Introduce
   - setup
+  - usage
+  - introduce
 description:
 thumbnail:
 createdAt: 2025-11-06T15:37:20+09:00

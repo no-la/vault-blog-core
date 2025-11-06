@@ -6,5 +6,8 @@
   "Vercelにデプロイするまでの手順.md": "deploy-to-vercel",
   "Youtube動画の埋め込み.md": "embed-youtube-sample",
   "カードリンクの埋め込み.md": "card-link-sample",
-  "具体的な仕様の説明.md": "introduce-detail"
+  "ファイルパスの扱いについて.md": "remark-file-path",
+  "具体的な仕様の説明.md": "introduce-detail",
+  "実際に記事を書いて投稿するまでの手順.md": "how-to-post",
+  "投稿記事用フロントマターについて.md": "post-frontmatter"
 }
