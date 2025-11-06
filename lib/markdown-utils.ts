@@ -112,8 +112,8 @@ export const embedMovieGenerator = (basename: string, ext: string): string => {
   const url = getPostAssetUrlByFilename(filename);
   return `<video src="${url}" controls></video>`;
 };
-export const pageLinkGenerator = (alt: string, slug: PostSlug): string => {
-  return `<a href="${getPostUrl(slug)}">${alt}</a>`;
+export const pageLinkGenerator = (alt: string, url: string): string => {
+  return `<a href="${url}">${alt}</a>`;
 };
 export const imageLinkGenerator = (basename: string, ext: string): string => {
   return embedImageGenerator(basename, ext);

@@ -1,7 +1,9 @@
 {
   "sample": [
+    "callout-sample",
     "converted-markdown-sample",
-    "embed-youtube-sample"
+    "embed-youtube-sample",
+    "card-link-sample"
   ],
   "Introduce": [
     "introduce"
