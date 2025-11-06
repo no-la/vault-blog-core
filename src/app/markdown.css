@@ -193,7 +193,7 @@ blockquote > :last-child {
 }
 
 .markdown-body tr:nth-child(even) td {
-  background-color: #f7f7f7;
+  background-color: #fcfcfc;
 }
 
 .markdown-body table caption {
