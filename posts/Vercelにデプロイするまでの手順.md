@@ -8,8 +8,8 @@ tags:
   - introduce
 description:
 thumbnail:
-createdAt: 2025-11-06T17:17:27+09:00
-updatedAt: 2025-11-06T17:17:27+09:00
+createdAt: 2025-11-06T01:17:27+09:00
+updatedAt: 2025-11-06T01:17:27+09:00
 ---
 
 Next.js のプロジェクトは Vercel にデプロイするのが便利らしく、このサイトも Vercel にデプロイしています。

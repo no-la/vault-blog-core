@@ -7,9 +7,9 @@
   "how-to-customize": "Vault Blog Core のカスタマイズ.md",
   "explani-directories": "Vault Blog Core の各ディレクトリの説明.md",
   "how-to-setup": "Vault Blog Core の導入手順.md",
+  "post-frontmatter": "Vault Blog Core の投稿記事用フロントマターについて.md",
   "introduce-detail": "Vault Blog Core は何ができる？.md",
   "deploy-to-vercel": "Vercelにデプロイするまでの手順.md",
   "embed-youtube-sample": "Youtube動画の埋め込み.md",
-  "card-link-sample": "カードリンクの埋め込み.md",
-  "post-frontmatter": "投稿記事用フロントマターについて.md"
+  "card-link-sample": "カードリンクの埋め込み.md"
 }

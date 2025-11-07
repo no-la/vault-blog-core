@@ -7,14 +7,18 @@
   ],
   "introduce": [
     "introduce",
+    "remark-file-path",
     "how-to-post",
+    "how-to-customize",
+    "explani-directories",
     "how-to-setup",
+    "post-frontmatter",
     "introduce-detail",
-    "deploy-to-vercel",
-    "post-frontmatter"
+    "deploy-to-vercel"
   ],
   "remark": [
-    "remark-file-path"
+    "remark-file-path",
+    "explani-directories"
   ],
   "usage": [
     "remark-file-path",
@@ -22,11 +26,10 @@
     "how-to-customize",
     "explani-directories",
     "how-to-setup",
-    "deploy-to-vercel",
-    "post-frontmatter"
+    "post-frontmatter",
+    "deploy-to-vercel"
   ],
   "setup": [
-    "how-to-customize",
     "how-to-setup",
     "deploy-to-vercel"
   ]

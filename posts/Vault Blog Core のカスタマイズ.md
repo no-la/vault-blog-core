@@ -3,8 +3,8 @@ slug: how-to-customize
 title:
 published: true
 tags:
-  - setup
   - usage
+  - introduce
 description:
 thumbnail:
 createdAt: 2025-11-07T07:55:15+09:00
@@ -123,7 +123,7 @@ export const getRssFilePath = () => path.join(PUBLIC_DIR, "feed.xml");
 ```
 
 > [!Note]
-> サンプルとして置いてある `./src/components` を使わず、これらの関数も使わない場合は、書き換え無くても問題ありません。
+> サンプルに置いてある `./src/components` を使わず、これらの関数を直接使うこともない場合は、書き換え無くても問題ありません。
 
 
 
@@ -133,3 +133,21 @@ export const getRssFilePath = () => path.join(PUBLIC_DIR, "feed.xml");
 
 同様に `./src/components` も好きに編集して構いません。
 こちらに関しては、開発者が手を加えて `git push` する可能性がありますが、コンフリクトしたとしても大きな問題にはならないと思います。各自良いように管理してください。
+
+
+## まとめ
+
+- **環境変数の設定**  
+    `POST_SOURCE_DIR` や `SITE_URL` などを設定することで、ブログ全体の挙動や参照先を変更できます。
+- **投稿条件の変更**  
+    `./config/can-publish.ts` の `canPublish()` を編集することで、どのMarkdownファイルを記事として公開するか自由に制御できます。  
+- **ルーティングの変更**  
+    App Router (`./src/app`) を編集することで、ページ構成やURL設計を自由に変更可能です。  
+    `./src/lib/routes.ts` にURL生成関数をまとめておくと便利です。
+- **見た目の変更**  
+    `layout.tsx` や各ページの `page.tsx`、`./src/components` を編集することで、ブログのデザインやスタイルを自由にカスタマイズできます。
+
+
+これらのポイントを押さえることで、**Vault Blog Core** を用いた自分だけのブログを柔軟に構築・運用できます。
+
+各ディレクトリの役割や依存関係については[[Vault Blog Core の各ディレクトリの説明]]を読んでください。

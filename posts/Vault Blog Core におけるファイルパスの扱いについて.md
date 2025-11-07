@@ -5,10 +5,11 @@ published: true
 tags:
   - remark
   - usage
+  - introduce
 description:
 thumbnail:
-createdAt: 2025-11-06T19:16:39+09:00
-updatedAt: 2025-11-06T19:16:39+09:00
+createdAt: 2025-11-06T03:16:39+09:00
+updatedAt: 2025-11-06T03:16:39+09:00
 ---
 **Vault Blog Core** における投稿用ファイルのパスの扱いには、いくつか注意点があります。  
 Markdown ファイル、画像、音声、動画など、すべての種類のファイルに共通して次の点に注意してください。

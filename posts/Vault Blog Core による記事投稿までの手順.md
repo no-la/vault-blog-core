@@ -7,8 +7,8 @@ tags:
   - introduce
 description:
 thumbnail:
-createdAt: 2025-11-06T17:46:04+09:00
-updatedAt: 2025-11-06T17:46:04+09:00
+createdAt: 2025-11-06T02:46:04+09:00
+updatedAt: 2025-11-06T02:46:04+09:00
 ---
 [[Vault Blog Core の導入手順]]で導入した **Vault Blog Core** を用いて、実際に記事を投稿するまでの手順を説明します。
 
@@ -87,4 +87,4 @@ pnpm dev
  ([[Vercelにデプロイするまでの手順]]を済ませた方は `git push` するとデプロイされるはずなので、試してみましょう！)
 
 
-次は、[[投稿記事用フロントマターについて]]を見てみてください！
+次は、[[Vault Blog Core の投稿記事用フロントマターについて]]を見てみてください！
