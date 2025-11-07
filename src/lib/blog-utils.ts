@@ -46,7 +46,15 @@ export const getRelatedPosts = async (post: PostHtml): Promise<PostHtml[]> => {
   const postsArray = await Promise.all(
     post.tags.map(async (tag) => getPostsByTag(tag))
   );
-  return postsArray.flat().filter((p) => p.slug !== post.slug);
+
+  const allPosts = postsArray.flat().filter((p) => p.slug !== post.slug);
+
+  // slugで重複を除外
+  const uniquePosts = Array.from(
+    new Map(allPosts.map((p) => [p.slug, p])).values()
+  );
+
+  return uniquePosts;
 };
 export const getAllSlugs = (): string[] => {
   return getAllPostSlugs();
