@@ -4,77 +4,99 @@
         <description><![CDATA[Latest posts from Vault Blog Core]]></description>
         <link>http://localhost:3000</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Wed, 05 Nov 2025 08:31:01 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 07 Nov 2025 05:07:14 GMT</lastBuildDate>
         <atom:link href="http://localhost:3000/feed.xml" rel="self" type="application/rss+xml"/>
         <language><![CDATA[ja]]></language>
         <item>
-            <title><![CDATA[callout一覧]]></title>
-            <description><![CDATA[note abstract summary tldr info todo tip hint important success check done question help faq warning caution attention failure fail missing danger error bug example quote cite その他を指定した場合]]></description>
-            <link>http://localhost:3000/posts/call-out</link>
-            <guid isPermaLink="true">http://localhost:3000/posts/call-out</guid>
-            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
+            <title><![CDATA[Youtube動画の埋め込み]]></title>
+            <description><![CDATA[Youtube動画の埋め込みサンプル 元のMarkdown ## Youtube動画の埋め込みサンプル ![5歳児に殴られたい君へ。 - YouTube](https://www.youtube.com/watch?v=NoyQs-NDH40)]]></description>
+            <link>http://localhost:3000//posts/embed-youtube-sample</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/embed-youtube-sample</guid>
+            <pubDate>Sat, 08 Nov 2025 13:47:59 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[mimic2]]></title>
-            <description><![CDATA[test]]></description>
-            <link>http://localhost:3000/posts/mimic-2</link>
-            <guid isPermaLink="true">http://localhost:3000/posts/mimic-2</guid>
-            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
+            <title><![CDATA[Callout の変換例]]></title>
+            <description><![CDATA[Callout変換サンプル Note サンプルテキスト。 Abstract Summary Tldr Info Todo Tip Hint Important Success Check Done Question Help Faq Warning Caution Attention Failure Fail Missing Danger Error Bug Example Quote Cite ...]]></description>
+            <link>http://localhost:3000//posts/callout-sample</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/callout-sample</guid>
+            <pubDate>Sat, 08 Nov 2025 00:23:29 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[これタイトルが長いとどういう表示になるんだろうね。うまく行くと良いけどなあ...]]></title>
-            <description><![CDATA[あいうえおかきくけこ あいうえおかきくけこ あいうえおかきくけこ あいうえおかきくけこ あいうえおかきくけこ]]></description>
-            <link>http://localhost:3000/posts/long-title-sample</link>
-            <guid isPermaLink="true">http://localhost:3000/posts/long-title-sample</guid>
-            <pubDate>Tue, 04 Nov 2025 00:00:00 GMT</pubDate>
+            <title><![CDATA[カードリンクの埋め込み]]></title>
+            <description><![CDATA[カードリンクの埋め込みサンプル GitHub - nekoshita/obsidian-auto-card-link Contribute to nekoshita/obsidian-auto-card-link development by creating an account on GitHub. github.com 元のMarkdown \`\`\`cardlink url: https...]]></description>
+            <link>http://localhost:3000//posts/card-link-sample</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/card-link-sample</guid>
+            <pubDate>Sat, 08 Nov 2025 00:05:53 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[Test Template]]></title>
-            <link>http://localhost:3000/posts/test-template</link>
-            <guid isPermaLink="true">http://localhost:3000/posts/test-template</guid>
-            <pubDate>Sun, 02 Nov 2025 00:00:00 GMT</pubDate>
+            <title><![CDATA[Markdown の変換例]]></title>
+            <description><![CDATA[見出しサンプル 強調 *斜体* / _斜体_ **太字** / __太字__ ***太字かつ斜体*** / ___太字かつ斜体___ 斜体 / 斜体 太字 / 太字 太字かつ斜体 / 太字かつ斜体 リスト 無順序リスト - 項目1 - 項目2 - サブ項目2-1 - サブ項目2-2 * 項目3 項目1 項目2 サブ項目2-1 サブ項目2-2 項目3 順序付きリスト 1. 項目1 2. 項目2 1....]]></description>
+            <link>http://localhost:3000//posts/converted-markdown-sample</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/converted-markdown-sample</guid>
+            <pubDate>Fri, 07 Nov 2025 15:35:50 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[小鳥たちのさえずり]]></title>
-            <description><![CDATA[朝の静けさを破るのは、スズメやヒヨドリの声。 小鳥たちは毎日同じ時間に集まり、まるで会議をしているようです。 鳴き声の種類 鳥の名前 鳴き声 意味 スズメ ちゅんちゅん 仲間との会話 ヒヨドリ ぴーよぴよ ナワバリ宣言 メジロ ちーちー あいさつ 観察メモ 早朝（6時〜7時）がもっとも活発 雨の日は静か 冬は数が減る 詩 風に乗って 声が届く 森のメロディ]]></description>
-            <link>http://localhost:3000/posts/bird-tweeting</link>
-            <guid isPermaLink="true">http://localhost:3000/posts/bird-tweeting</guid>
-            <pubDate>Fri, 31 Oct 2025 00:00:00 GMT</pubDate>
+            <title><![CDATA[Vault Blog Core の各ディレクトリの説明]]></title>
+            <description><![CDATA[Vault Blog Core の各ディレクトリの役割・使い方を説明をします。 主要なフォルダは下記のとおりです。 . ├─ config ├─ data ├─ lib ├─ posts ├─ public │ ├─ images │ └─ post-assets ├─ scripts ├─ src │ ├─ app │ │ ├─ about │ │ ├─ posts │ │ │ ├─ page ...]]></description>
+            <link>http://localhost:3000//posts/explani-directories</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/explani-directories</guid>
+            <pubDate>Fri, 07 Nov 2025 02:51:48 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[気ままな猫の午後]]></title>
-            <description><![CDATA[午前中は窓際で日向ぼっこ、午後はソファの上でゴロゴロ。 気分が乗ったときだけ遊んでくれます。 ルーティン 起床（9:00ごろ） ごはん 監視活動（窓の外の鳥をチェック） お昼寝（約3時間） 夜の大運動会 飼い主が仕事を始めると、必ずキーボードの上に座る不思議な習性。 猫の哲学 「食べる、寝る、そして支配する。」]]></description>
-            <link>http://localhost:3000/posts/cat-evening</link>
-            <guid isPermaLink="true">http://localhost:3000/posts/cat-evening</guid>
-            <pubDate>Fri, 31 Oct 2025 00:00:00 GMT</pubDate>
+            <title><![CDATA[Vault Blog Core のカスタマイズ]]></title>
+            <description><![CDATA[Vault Blog Core を用いて自分だけのブログを作る方法を説明します。 現時点では、主に以下の4つのカスタマイズを想定しています。 環境変数の設定 投稿条件の変更 ルーティングの変更 見た目の変更 1. 環境変数の設定 これについてはVault Blog Core の導入手順で説明しています。 2. 投稿条件の変更 ここでは、どのMarkdownファイルを「記事として公開するか」の条件を...]]></description>
+            <link>http://localhost:3000//posts/how-to-customize</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/how-to-customize</guid>
+            <pubDate>Thu, 06 Nov 2025 22:55:15 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[犬の一日]]></title>
-            <description><![CDATA[朝、飼い主が起きる前からしっぽを振ってお出迎え。 お気に入りの散歩コースは近くの公園です。 好きなこと 散歩 おやつ（特にビスケット） 日向ぼっこ 苦手なこと 雷の音 ⚡ シャンプーの日 留守番 「ワン！」と言えば何かもらえると思っている節がある。 コード例（犬語） bark() eat(&quot;treat&quot;) sleep(3600)]]></description>
-            <link>http://localhost:3000/posts/dog-one-day</link>
-            <guid isPermaLink="true">http://localhost:3000/posts/dog-one-day</guid>
-            <pubDate>Fri, 31 Oct 2025 00:00:00 GMT</pubDate>
+            <title><![CDATA[Vault Blog Core の投稿記事用フロントマターについて]]></title>
+            <description><![CDATA[Vault Blog Core で投稿するための Markdown ファイルのフロントマターを説明します。 フロントマターのテンプレート テンプレートはこちらで、YAML フロントマターを想定しています。 --- slug: title: published: false tags: description: thumbnail: createdAt: updatedAt: --- Note gr...]]></description>
+            <link>http://localhost:3000//posts/post-frontmatter</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/post-frontmatter</guid>
+            <pubDate>Thu, 06 Nov 2025 02:49:24 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[画像ファイルだね]]></title>
-            <description><![CDATA[Graph viewだね。きれいだ。]]></description>
-            <link>http://localhost:3000/posts/image-file</link>
-            <guid isPermaLink="true">http://localhost:3000/posts/image-file</guid>
-            <pubDate>Fri, 31 Oct 2025 00:00:00 GMT</pubDate>
+            <title><![CDATA[Vault Blog Core におけるファイルパスの扱いについて]]></title>
+            <description><![CDATA[Vault Blog Core における投稿用ファイルのパスの扱いには、いくつか注意点があります。 Markdown ファイル、画像、音声、動画など、すべての種類のファイルに共通して次の点に注意してください。 ディレクトリ構造は入れ子にしない Vault Blog Core の導入手順 などで説明した POST_SOURCE_DIR IMAGE_SOURCE_DIR SOUND_SOURCE_DI...]]></description>
+            <link>http://localhost:3000//posts/remark-file-path</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/remark-file-path</guid>
+            <pubDate>Wed, 05 Nov 2025 18:16:39 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[青空]]></title>
-            <description><![CDATA[空が青いね。うれしいね。 Vercel完全ガイド🔥 初心者でも簡単にできるWebサイト高速デプロイ！ - Qiita Vercel 入門：次世代デプロイメントでWebサイトを高速構築！🚀 こんにちは、@YushiYamamotoです！ 今回は、Vercel を利用したモダンなデプロイメントの手法について、エンジニア初心者でも分かりやすく、かつ専門的な内容を盛り込んで解説していきます。Ve......]]></description>
-            <link>http://localhost:3000/posts/blue-sky</link>
-            <guid isPermaLink="true">http://localhost:3000/posts/blue-sky</guid>
-            <pubDate>Fri, 31 Oct 2025 00:00:00 GMT</pubDate>
+            <title><![CDATA[Vault Blog Core による記事投稿までの手順]]></title>
+            <description><![CDATA[Vault Blog Core の導入手順で導入した Vault Blog Core を用いて、実際に記事を投稿するまでの手順を説明します。 大まかな流れは次の通りです。 ディレクトリの確認 サンプル.md の作成 投稿 1. ディレクトリの確認 Vault Blog Core の導入手順で言及した、各ディレクトリと .env の各変数の対応に注意してください。 変数名 説明 POST_SOURC...]]></description>
+            <link>http://localhost:3000//posts/how-to-post</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/how-to-post</guid>
+            <pubDate>Wed, 05 Nov 2025 17:46:04 GMT</pubDate>
         </item>
         <item>
-            <title><![CDATA[ミミックの囁き]]></title>
-            <description><![CDATA[ちゅ❤ ミミックは肺呼吸だよ🫁 犬の一日はおいしくなかったよ🤮 お山の大将どすこい三昧]]></description>
-            <link>http://localhost:3000/posts/mimic-whispering</link>
-            <guid isPermaLink="true">http://localhost:3000/posts/mimic-whispering</guid>
-            <pubDate>Thu, 30 Oct 2025 00:00:00 GMT</pubDate>
+            <title><![CDATA[Vercelにデプロイするまでの手順]]></title>
+            <description><![CDATA[Next.js のプロジェクトは Vercel にデプロイするのが便利らしく、このサイトも Vercel にデプロイしています。 そこで、Vault Blog Coreの導入手順で用意したプロジェクトをVercelにデプロイするまでの流れを、簡易的にですが、紹介しておきます。 Vercel にデプロイするまでの手順 Vercel にログインし、画面の指示に従って Create New Projec...]]></description>
+            <link>http://localhost:3000//posts/deploy-to-vercel</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/deploy-to-vercel</guid>
+            <pubDate>Wed, 05 Nov 2025 16:17:27 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Vault Blog Core の導入手順]]></title>
+            <description><![CDATA[Vault Blog Core の導入手順を説明します。 リポジトリの準備 まずは Git リポジトリを準備します。 下記手順で進めてください。 GitHub - no-la/vault-blog-core に行き、右上にある Fork ボタンから fork を作成 プロジェクトを置きたいディレクトリに移動し git clone &lt;リポジトリURL&gt; で clone を作成 Note ...]]></description>
+            <link>http://localhost:3000//posts/how-to-setup</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/how-to-setup</guid>
+            <pubDate>Wed, 05 Nov 2025 15:37:20 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Vault Blog Core は何ができる？]]></title>
+            <description><![CDATA[Vault Blog Core が実際に行うことは、主に .md ファイルの収集と解析 各記事のHTMLを生成 です。 1. .md ファイルの収集と解析 プロジェクトルートでコマンド sh scripts/run-update-posts.sh を実行することで、以下の処理を行います。 指定したディレクトリにある .md ファイルをプロジェクト内にコピーする フロントマターや本文を解析し、 各ペ...]]></description>
+            <link>http://localhost:3000//posts/introduce-detail</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/introduce-detail</guid>
+            <pubDate>Wed, 05 Nov 2025 14:00:35 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[Vault Blog Core とは？]]></title>
+            <description><![CDATA[Vault Blog Core の概要と特徴を紹介する記事です。]]></description>
+            <link>http://localhost:3000//posts/introduce</link>
+            <guid isPermaLink="true">http://localhost:3000//posts/introduce</guid>
+            <pubDate>Wed, 05 Nov 2025 13:41:48 GMT</pubDate>
         </item>
     </channel>
 </rss>

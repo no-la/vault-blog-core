@@ -26,7 +26,9 @@ export default async function BlogPosts({
     notFound();
   }
 
-  const posts = await getPaginatedPosts(page, POST_PER_PAGE);
+  const posts = await getPaginatedPosts(page, POST_PER_PAGE, {
+    oldToNew: true,
+  });
 
   return <PaginatedPosts posts={posts} page={page} totalPages={totalPages} />;
 }

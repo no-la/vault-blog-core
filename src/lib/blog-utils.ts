@@ -8,7 +8,11 @@ import {
 } from "./tag-map";
 
 // ===== posts =====
-export const getAllPostsSortedByCreatedAt = async (): Promise<PostHtml[]> => {
+export const getAllPostsSortedByCreatedAt = async (
+  options: {
+    oldToNew?: boolean;
+  } = { oldToNew: false }
+): Promise<PostHtml[]> => {
   const allSlugs = getAllSlugs();
   const posts: PostHtml[] = [];
   for (const slug of allSlugs) {
@@ -17,16 +21,21 @@ export const getAllPostsSortedByCreatedAt = async (): Promise<PostHtml[]> => {
   }
   // sorted by createdAt
   // new to old
-  return posts.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  return posts.sort(
+    (a, b) =>
+      (options.oldToNew ? -1 : 1) *
+      (b.createdAt.getTime() - a.createdAt.getTime())
+  );
 };
 export const getPostBySlug = async (slug: string): Promise<PostHtml> => {
   return await getPostHtml(slug);
 };
 export const getPaginatedPosts = async (
   page: number, // 1-indexed
-  limit: number
+  limit: number,
+  { oldToNew }: { oldToNew?: boolean } = { oldToNew: false }
 ): Promise<PostHtml[]> => {
-  const allPosts = await getAllPostsSortedByCreatedAt();
+  const allPosts = await getAllPostsSortedByCreatedAt({ oldToNew });
   const startIndex = (page - 1) * limit;
   const endIndex = startIndex + limit;
   return allPosts.slice(startIndex, endIndex);
