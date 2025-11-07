@@ -1,33 +1,288 @@
+import MarkdownIt from "markdown-it";
 import { PostSlug } from "../../types/post";
-import { getPostAssetUrlByFilename } from "./routes";
+import { getPostAssetUrlByFilename, getPostUrl } from "./routes";
+import {
+  allCodeBlocksSimpleRegex,
+  allEmbedWikiLinksRegex,
+  allWikiLinksRegex,
+  parseWikiLinkContent,
+} from "../../lib/parse-markdown-utils";
+import { existsFilename, filenameToSlug } from "./slug-map";
+import {
+  IMAGE_EXTENSIONS,
+  MOVIE_EXTENSIONS,
+  SOUND_EXTENSIONS,
+} from "../../config/extensions";
+import { escapeHtml } from "markdown-it/lib/common/utils.mjs";
 
-export const embedPageGenerator = (alt: string, url: PostSlug): string => {
+const embedPageGenerator = (alt: string, url: PostSlug): string => {
   return pageLinkGenerator(alt, url);
 };
-export const embedImageGenerator = (basename: string, ext: string): string => {
+const embedImageGenerator = (basename: string, ext: string): string => {
   const filename = `${basename}.${ext}`;
   const url = getPostAssetUrlByFilename(filename);
   return `<img src="${url}" alt="${basename}"></img>`;
 };
-export const embedSoundGenerator = (basename: string, ext: string): string => {
+const embedSoundGenerator = (basename: string, ext: string): string => {
   const filename = `${basename}.${ext}`;
   const url = getPostAssetUrlByFilename(filename);
   return `<audio src="${url}" controls></audio>`;
 };
-export const embedMovieGenerator = (basename: string, ext: string): string => {
+const embedMovieGenerator = (basename: string, ext: string): string => {
   const filename = `${basename}.${ext}`;
   const url = getPostAssetUrlByFilename(filename);
   return `<video src="${url}" controls></video>`;
 };
-export const pageLinkGenerator = (alt: string, url: string): string => {
+const pageLinkGenerator = (alt: string, url: string): string => {
   return `<a href="${url}">${alt}</a>`;
 };
-export const imageLinkGenerator = (basename: string, ext: string): string => {
+const imageLinkGenerator = (basename: string, ext: string): string => {
   return embedImageGenerator(basename, ext);
 };
-export const soundLinkGenerator = (basename: string, ext: string): string => {
+const soundLinkGenerator = (basename: string, ext: string): string => {
   return embedSoundGenerator(basename, ext);
 };
-export const movieLinkGenerator = (basename: string, ext: string): string => {
+const movieLinkGenerator = (basename: string, ext: string): string => {
   return embedMovieGenerator(basename, ext);
 };
+
+// 共通Embed判定
+type EmbedPlatform = "youtube";
+
+interface Embed {
+  platform: EmbedPlatform;
+  embedUrl: string;
+  alt?: string;
+}
+
+const getEmbed = (url: string, alt?: string): Embed | null => {
+  const youtubeUrl = parseYouTubeUrl(url);
+  if (youtubeUrl) return { platform: "youtube", embedUrl: youtubeUrl, alt };
+
+  return null;
+};
+
+// YouTube埋め込みURL
+const parseYouTubeUrl = (url: string): string | null => {
+  try {
+    const u = new URL(url);
+    const host = u.hostname.toLowerCase();
+    if (!["www.youtube.com", "youtube.com", "youtu.be"].includes(host)) {
+      return null;
+    }
+
+    const videoId = host.includes("youtu.be")
+      ? u.pathname.slice(1)
+      : u.searchParams.get("v");
+
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+  } catch {
+    return null;
+  }
+};
+
+export class ConvertingMarkdown {
+  private codeBlocks: string[] = [];
+  private codeBlockHtmls: string[] = [];
+
+  constructor(private content: string) {
+    this.content = content;
+  }
+
+  toString(): string {
+    return this.content;
+  }
+
+  mdRender(): ConvertingMarkdown {
+    const md = MarkdownIt({ html: true, breaks: true });
+    this.content = md.render(this.toString());
+    return this;
+  }
+
+  convertTabToSpaces(): ConvertingMarkdown {
+    this.content = this.content.replace(/\t/g, " ".repeat(4));
+    return this;
+  }
+
+  convertEmbedWikiLinks(): ConvertingMarkdown {
+    this.content = this.content.replace(
+      allEmbedWikiLinksRegex(),
+      (match, p1) => {
+        const { basename, ext, alt } = parseWikiLinkContent(p1);
+
+        if (ext === null) {
+          const filename = `${basename}.md`;
+          if (existsFilename(filename)) {
+            const slug = filenameToSlug(filename);
+            return embedPageGenerator(alt || basename, getPostUrl(slug));
+          }
+          return alt || basename;
+        }
+
+        const filename = `${basename}.${ext}`;
+        if (IMAGE_EXTENSIONS.includes(ext)) {
+          return embedImageGenerator(basename, ext);
+        } else if (SOUND_EXTENSIONS.includes(ext)) {
+          return embedSoundGenerator(basename, ext);
+        } else if (MOVIE_EXTENSIONS.includes(ext)) {
+          return embedMovieGenerator(basename, ext);
+        } else {
+          return alt || filename;
+        }
+      }
+    );
+    return this;
+  }
+
+  convertWikiLinks(): ConvertingMarkdown {
+    this.content = this.content.replace(allWikiLinksRegex(), (match, p1) => {
+      const { basename, ext, alt } = parseWikiLinkContent(p1);
+
+      if (ext === null) {
+        const filename = `${basename}.md`;
+        if (existsFilename(filename)) {
+          const slug = filenameToSlug(filename);
+          return pageLinkGenerator(basename, getPostUrl(slug));
+        }
+        return alt || basename;
+      }
+
+      const filename = `${basename}.${ext}`;
+      if (IMAGE_EXTENSIONS.includes(ext)) {
+        return imageLinkGenerator(basename, ext);
+      } else if (SOUND_EXTENSIONS.includes(ext)) {
+        return soundLinkGenerator(basename, ext);
+      } else if (MOVIE_EXTENSIONS.includes(ext)) {
+        return movieLinkGenerator(basename, ext);
+      } else {
+        return alt || filename;
+      }
+    });
+    return this;
+  }
+
+  convertCardlinkBlocks(): ConvertingMarkdown {
+    this.content = this.content.replace(
+      /```cardlink\s+([\s\S]*?)```/g,
+      (_, content) => {
+        const data: Record<string, string> = {};
+        content.split("\n").forEach((line: string) => {
+          const match = line.match(/^(\w+):\s*(.+)$/);
+          if (match) {
+            const [, key, value] = match;
+            data[key] = value.replace(/^"|"$/g, "");
+          }
+        });
+
+        return `
+<a href="${data.url}" class="cardlink">
+  <div class="cardlink-content">
+    ${
+      data.image
+        ? `<img src="${data.image}" alt="サムネイル" class="cardlink-image" />`
+        : ""
+    }
+    <div class="cardlink-text">
+      <h3 class="cardlink-title">${escapeHtml(data.title) || ""}</h3>
+      <p class="cardlink-description">${escapeHtml(data.description) || ""}</p>
+      <div class="cardlink-meta">
+        ${
+          data.favicon
+            ? `<img src="${data.favicon}" alt="" class="cardlink-favicon" />`
+            : ""
+        }
+        <span class="cardlink-host">${data.host || ""}</span>
+      </div>
+    </div>
+  </div>
+</a>`;
+      }
+    );
+    return this;
+  }
+
+  converCallouts(): ConvertingMarkdown {
+    this.content = this.content.replace(
+      /^>\s+\[!(.*?)\]\n((?:>\s+.*\n?)*)/gm,
+      (_, kind: string, content: string) => {
+        const lowerKind = kind.trim().toLowerCase();
+        const cleanedContent = content
+          .split(/\n/)
+          .map((line) => line.replace(/^>\s+/, "").trim())
+          .map((line) => `<p>${line}</p>`)
+          .join("");
+        return `
+<div class="callout callout-${lowerKind}">
+  <div class="callout-title">${escapeHtml(lowerKind)}</div>
+  <div class="callout-content">
+    ${cleanedContent}
+  </div>
+</div>`;
+      }
+    );
+
+    return this;
+  }
+
+  convertEmbedLinks(): ConvertingMarkdown {
+    this.content = this.content.replace(
+      /!\[(.*?)\]\((.+?)\)/g,
+      (match, alt, url) => {
+        const embed = getEmbed(url, alt);
+        if (!embed) return match;
+
+        switch (embed.platform) {
+          case "youtube":
+            return `
+<div class="embed-youtube-container">
+  <iframe
+    src="${embed.embedUrl}"
+    frameborder="0"
+    allowfullscreen
+    title="YouTube Video${embed.alt ? `: ${embed.alt}` : ""}"
+    class="embed-youtube-video"
+  ></iframe>
+</div>`;
+        }
+      }
+    );
+    return this;
+  }
+
+  escapeCodeBlocks(): ConvertingMarkdown {
+    this.content = this.content.replace(allCodeBlocksSimpleRegex(), (block) => {
+      const index = this.codeBlocks.length;
+      this.codeBlocks.push(block);
+      return `@@CODE_BLOCK_${index}@@`; // placeholder
+    });
+    return this;
+  }
+
+  restoreCodeBlocks(): ConvertingMarkdown {
+    this.content = this.content.replace(
+      /@@CODE_BLOCK_(\d+)@@/g,
+      (_, index) => this.codeBlocks[Number(index)]
+    );
+    return this;
+  }
+
+  escapeHtmlCodeBlocks(): ConvertingMarkdown {
+    this.content = this.content.replace(
+      /<code[\s\S]*?>[\s\S]*?<\/code>/g,
+      (block) => {
+        const index = this.codeBlockHtmls.length;
+        this.codeBlockHtmls.push(block);
+        return `@@CODE_BLOCK_HTML_${index}@@`; // placeholder
+      }
+    );
+    return this;
+  }
+
+  restoreHtmlCodeBlocks(): ConvertingMarkdown {
+    this.content = this.content.replace(
+      /@@CODE_BLOCK_HTML_(\d+)@@/g,
+      (_, index) => this.codeBlockHtmls[Number(index)]
+    );
+    return this;
+  }
+}
