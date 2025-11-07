@@ -140,7 +140,7 @@ function hello() {
 [[Youtube動画の埋め込み]]
 ```
 
-[[Vault Blog Coreとは？]]
+[[Vault Blog Core とは？]]
 [[Youtube動画の埋め込み]]
 
 ## HTML埋め込み

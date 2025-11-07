@@ -65,14 +65,14 @@ cp .env.sample .env
 
 下記説明を参考に、自分用に書き換えてください。
 
-| 変数名 | 説明 |
-|--------|------|
-| `POST_SOURCE_DIR` | 投稿用のMarkdownファイルを置くディレクトリ |
-| `IMAGE_SOURCE_DIR` | 投稿用の画像ファイルを置くディレクトリ |
-| `SOUND_SOURCE_DIR` | 投稿用の音声ファイルを置くディレクトリ |
-| `MOVIE_SOURCE_DIR` | 投稿用の動画ファイルを置くディレクトリ |
-| `THUMBNAIL_SOURCE_DIR` | 記事のサムネイル用画像ディレクトリ |
-| `SITE_URL` | サイトのルートURL（例: `"http://localhost:3000"`） |
+| 変数名                    | 説明                                       |
+| ---------------------- | ---------------------------------------- |
+| `POST_SOURCE_DIR`      | 投稿用のMarkdownファイルを置くディレクトリ                |
+| `IMAGE_SOURCE_DIR`     | 投稿用の画像ファイルを置くディレクトリ                      |
+| `SOUND_SOURCE_DIR`     | 投稿用の音声ファイルを置くディレクトリ                      |
+| `MOVIE_SOURCE_DIR`     | 投稿用の動画ファイルを置くディレクトリ                      |
+| `THUMBNAIL_SOURCE_DIR` | 記事のサムネイル用画像ディレクトリ                        |
+| `SITE_URL`             | サイトのルートURL（例: `"http://localhost:3000"`） |
 
 `SITE_URL` については、開発環境での実行用に `"http://localhost:3000"` としています。
 

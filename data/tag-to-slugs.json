@@ -6,10 +6,10 @@
     "card-link-sample"
   ],
   "introduce": [
+    "introduce-detail",
     "introduce",
     "how-to-setup",
     "deploy-to-vercel",
-    "introduce-detail",
     "how-to-post",
     "post-frontmatter"
   ],

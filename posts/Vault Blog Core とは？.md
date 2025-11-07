@@ -1,6 +1,6 @@
 ---
 slug: introduce
-title: Vault Blog Coreとは？
+title:
 published: true
 tags:
   - introduce
@@ -25,7 +25,7 @@ Vault Blog Core は、**Markdownベースの軽量ブログフレームワーク
 
 ### 3. リンクの埋め込み
 - `![タイトル](YouTube動画URL)` で[[Youtube動画の埋め込み]]が可能
-- [GitHub - nekoshita/obsidian-auto-card-link](https://github.com/nekoshita/obsidian-auto-card-link) による[[カードリンクの埋め込み]]に対応
+- [obsidian-auto-card-link](https://github.com/nekoshita/obsidian-auto-card-link) による[[カードリンクの埋め込み]]に対応
 
 ### 4. タグ管理
 - フロントマターに `tags` を設定するだけで自動分類
@@ -37,11 +37,11 @@ Vault Blog Core は、**Markdownベースの軽量ブログフレームワーク
 
 ### 6. 公開条件を柔軟に変更可能
 
-- 初期設定では「指定されたディレクトリ下にあり、フロントマターの `published` が `true` である」記事を公開
+- 初期設定では、指定されたディレクトリ下にある「フロントマターの `published` が `true` である」記事を公開
 - 関数を一つ書き換えれば任意の条件で公開可能
 
 ## まとめ
 
 Vault Blog Core は、**ノート感覚で書いた Markdown をそのままブログとして公開**したい人向けのフレームワークです。
 
-次の記事では、[[具体的な仕様の説明]]をします。
+次の記事では、[[Vault Blog Coore は何ができる？]]を説明します。
