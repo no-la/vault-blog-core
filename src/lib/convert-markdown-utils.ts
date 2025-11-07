@@ -90,6 +90,23 @@ export class ConvertingMarkdown {
     this.content = content;
   }
 
+  executeAll(): string {
+    return this.convertTabToSpaces()
+      .convertCardlinkBlocks()
+      .converCallouts()
+      .escapeCodeBlocks()
+      .escapeInlineCodeBlocks()
+      .convertEmbedLinks()
+      .restoreInlineCodeBlocks()
+      .restoreCodeBlocks()
+      .mdRender()
+      .escapeHtmlCodeBlocks()
+      .convertEmbedWikiLinks()
+      .convertWikiLinks()
+      .restoreHtmlCodeBlocks()
+      .toString();
+  }
+
   toString(): string {
     return this.content;
   }
@@ -250,10 +267,9 @@ export class ConvertingMarkdown {
         }
 
         // 本文HTML化
+
         result.push(
-          calloutContentLines
-            .map((l) => `<p>${escapeHtml(l.trim())}</p>`)
-            .join("\n")
+          new ConvertingMarkdown(calloutContentLines.join("\n")).executeAll()
         );
 
         result.push(`</div></div>`); // callout閉じタグ
