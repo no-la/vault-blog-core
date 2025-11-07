@@ -126,10 +126,11 @@ blockquote > :last-child {
 .cardlink-content {
   display: flex;
   align-items: stretch;
+  height: 10rem;
 }
 
 .cardlink-image {
-  height: 8rem;
+  height: 100%;
   object-fit: cover;
   flex-shrink: 0;
 }
