@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import RSS from "rss";
 import { SITE_URL } from "../../config/path";
-import { getPostUrl } from "../../lib/path-utils";
+import { getPostUrl } from "@/lib/routes";
 
 export async function generateRssFeed() {
   const posts = await getAllPostsSortedByCreatedAt();
