@@ -1,14 +1,15 @@
 {
-  "Callout の変換.md": "callout-sample",
+  "Callout の変換例.md": "callout-sample",
   "Markdown の変換例.md": "converted-markdown-sample",
-  "Vault Blog Coore は何ができる？.md": "introduce-detail",
   "Vault Blog Core とは？.md": "introduce",
+  "Vault Blog Core におけるファイルパスの扱いについて.md": "remark-file-path",
   "Vault Blog Core による記事投稿までの手順.md": "how-to-post",
   "Vault Blog Core のカスタマイズ.md": "how-to-customize",
+  "Vault Blog Core の各ディレクトリの説明.md": "explani-directories",
   "Vault Blog Core の導入手順.md": "how-to-setup",
+  "Vault Blog Core は何ができる？.md": "introduce-detail",
   "Vercelにデプロイするまでの手順.md": "deploy-to-vercel",
   "Youtube動画の埋め込み.md": "embed-youtube-sample",
   "カードリンクの埋め込み.md": "card-link-sample",
-  "ファイルパスの扱いについて.md": "remark-file-path",
   "投稿記事用フロントマターについて.md": "post-frontmatter"
 }

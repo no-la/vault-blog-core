@@ -44,4 +44,4 @@ Vault Blog Core は、**Markdownベースの軽量ブログフレームワーク
 
 Vault Blog Core は、**ノート感覚で書いた Markdown をそのままブログとして公開**したい人向けのフレームワークです。
 
-次の記事では、[[Vault Blog Coore は何ができる？]]を説明します。
+次の記事では、[[Vault Blog Core は何ができる？]]を説明します。

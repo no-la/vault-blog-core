@@ -6,27 +6,28 @@
     "card-link-sample"
   ],
   "introduce": [
-    "introduce-detail",
     "introduce",
     "how-to-post",
     "how-to-setup",
+    "introduce-detail",
     "deploy-to-vercel",
     "post-frontmatter"
   ],
+  "remark": [
+    "remark-file-path"
+  ],
   "usage": [
+    "remark-file-path",
     "how-to-post",
     "how-to-customize",
+    "explani-directories",
     "how-to-setup",
     "deploy-to-vercel",
-    "remark-file-path",
     "post-frontmatter"
   ],
   "setup": [
     "how-to-customize",
     "how-to-setup",
     "deploy-to-vercel"
-  ],
-  "remark": [
-    "remark-file-path"
   ]
 }
