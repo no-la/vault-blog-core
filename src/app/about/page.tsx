@@ -1,13 +1,13 @@
 import Link from "next/link";
 import styles from "./about.module.css";
 import { getHomeUrl } from "@/lib/routes";
+import Image from "next/image";
 
 export default function About() {
   const techStack = [
     "Next.js (App Router, SSG対応)",
     "TypeScript",
     "Markdown 運用",
-    "Vercel / GitHub Pages デプロイ対応",
   ];
 
   const features = [
@@ -25,16 +25,15 @@ export default function About() {
       <section className={styles.section}>
         <h2>概要</h2>
         <p>
-          <strong>Vault Blog Core</strong> は、
-          <strong>
-            Obsidian などのローカルノート環境で書いた Markdown
-          </strong>{" "}
-          をそのまま Web ブログとして公開できるようにするための、
+          <strong>Vault Blog Core</strong> は、 Obsidian などの
+          <strong>ローカルノート環境で書いた Markdown</strong> をそのまま Web
+          ブログとして公開できるようにするための、
           <strong>Next.js 製ブログテンプレート</strong>です。
         </p>
         <p>
-          投稿データの構造や変換ロジックを分離しており、
-          開発者が「自分の好みのデザイン構成」でブログを作れるように設計されています。
+          投稿データの構造や変換ロジックを分離しており、 開発者が
+          <strong>「自分の好みのデザイン構成」</strong>
+          でブログを作れるように設計されています。
         </p>
         <p>
           プロジェクトのソースコードは
@@ -79,10 +78,18 @@ export default function About() {
 
       <section className={styles.section}>
         <h2>基本的な使い方</h2>
-        <ul>
+        <ol>
           <li>
-            Markdown ファイルがあるディレクトリのパスなどを <code>.env</code>{" "}
-            ファイルに設定します
+            Markdown で記事を書く
+            <div>
+              <Image
+                src="/images/sample01.png"
+                alt="sample01"
+                width={500}
+                height={500}
+                className={styles.shadow}
+              ></Image>
+            </div>
           </li>
           <li>
             コマンド <code>sh scripts/run-update-posts.sh</code> を実行すると、
@@ -108,7 +115,7 @@ export default function About() {
               </strong>
             </p>
           </li>
-        </ul>
+        </ol>
       </section>
 
       <section className={styles.section}>

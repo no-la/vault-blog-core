@@ -8,7 +8,6 @@ import { getAboutUrl, getPostsUrl } from "@/lib/routes";
 export default async function Home() {
   const features = [
     "Markdownで記事管理",
-    "タグ管理",
     "見た目をカスタマイズしやすい構造",
     "ページネーション対応",
     "SSG 対応で高速表示",

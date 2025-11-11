@@ -2,10 +2,10 @@ import { Metadata } from "next";
 
 export const DEFAULT_METADATA: Metadata = {
   title: "Vault Blog Core",
-  description: "Markdownファイル群をブログとして公開するためのフレームワーク",
+  description: "Markdownファイル群をブログとして公開するためのテンプレート",
   openGraph: {
     title: "Vault Blog Core",
-    description: "Markdownファイル群をブログとして公開するためのフレームワーク",
+    description: "Markdownファイル群をブログとして公開するためのテンプレート",
     images: [
       {
         url: "/images/ogp-main.jpg", // 🌟 静的画像の指定
