@@ -159,10 +159,10 @@ export default function About() {
       <section className={styles.section}>
         <h2>想定する利用シーン</h2>
         <ul>
+          <li>外部 Markdown ファイル群の一部をブログ化したい人</li>
           <li>Obsidian ノートをブログ化したい個人開発者</li>
-          <li>SSG（静的サイト生成）型のブログを自作したい人</li>
-          <li>自分のブログを完全に TypeScript で管理したい人</li>
           <li>Markdown ベースで執筆したいエンジニア・研究者</li>
+          <li>フロントエンドを自由に設計してブログを作りたい人</li>
         </ul>
       </section>
       <section className={styles.section}>
