@@ -9,7 +9,7 @@ export const generateStaticParams = (): { tag: PostTag }[] => {
 
 export default async function TagPage({ params }: { params: { tag: string } }) {
   const { tag } = await params;
-  const posts = await getPostsByTag(tag);
+  const posts = await getPostsByTag(tag, { oldToNew: true });
   return (
     <div>
       <h1>

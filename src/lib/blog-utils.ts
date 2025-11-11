@@ -77,9 +77,17 @@ export const getRecentPosts = async (limit: number): Promise<PostHtml[]> => {
 export const getAllTags = (): PostTag[] => {
   return getAllPostTags();
 };
-export const getPostsByTag = async (tag: PostTag): Promise<PostHtml[]> => {
+export const getPostsByTag = async (
+  tag: PostTag,
+  options: { oldToNew?: boolean } = { oldToNew: false }
+): Promise<PostHtml[]> => {
   const posts = await Promise.all(
     getPostSlugsByPostTag(tag).map(async (slug) => await getPostHtml(slug))
+  );
+  posts.sort(
+    (a, b) =>
+      (options.oldToNew ? -1 : 1) *
+      (b.createdAt.getTime() - a.createdAt.getTime())
   );
   return posts;
 };
