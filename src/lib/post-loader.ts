@@ -1,3 +1,4 @@
+import { POST_DESCRIPTION_LIMIT } from "@/config/post-settings";
 import { getPostMd } from "../../lib/parse-markdown-utils";
 import { PostHtml, PostMeta } from "../../types/post";
 import { markdownToHtml } from "./markdown-to-html";
@@ -16,11 +17,7 @@ export const getPostHtml = async (slug: string): Promise<PostHtml> => {
   return postHtml;
 };
 
-const generateDescription = (
-  postMd: PostMeta,
-  contentHtml: string,
-  maxLength = 200
-): string => {
+const generateDescription = (postMd: PostMeta, contentHtml: string): string => {
   if (postMd.description) {
     return postMd.description;
   }
@@ -28,8 +25,8 @@ const generateDescription = (
   const textContent = contentHtml.replace(/<[^>]+>/g, "");
   const cleanText = textContent.replace(/\s+/g, " ").trim();
 
-  if (cleanText.length > maxLength) {
-    return cleanText.slice(0, maxLength) + "...";
+  if (cleanText.length > POST_DESCRIPTION_LIMIT) {
+    return cleanText.slice(0, POST_DESCRIPTION_LIMIT) + "...";
   }
   return cleanText;
 };
