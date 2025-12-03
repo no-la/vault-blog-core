@@ -16,6 +16,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  transpilePackages: ["markdown-it-prism"],
 };
 
 export default nextConfig;
