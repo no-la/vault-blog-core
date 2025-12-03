@@ -23,6 +23,16 @@
     "createdAt": "2025-11-07T15:35:50.000Z",
     "updatedAt": "2025-11-07T15:35:50.000Z"
   },
+  "intro-ogp-image": {
+    "slug": "intro-ogp-image",
+    "title": "OGP画像の自動生成について",
+    "filename": "OGP画像の自動生成について.md",
+    "tags": [],
+    "description": "OGP画像の自動生成については、[Functions: ImageResponse \\| Next.js](https://nextjs.org/docs/app/api-reference/func...",
+    "thumbnail": null,
+    "createdAt": "2025-12-03T11:30:59.000Z",
+    "updatedAt": "2025-12-03T11:30:59.000Z"
+  },
   "introduce": {
     "slug": "introduce",
     "title": "Vault Blog Core とは？",
@@ -166,12 +176,22 @@
     "createdAt": "2025-11-08T00:05:53.000Z",
     "updatedAt": "2025-11-08T00:05:53.000Z"
   },
+  "intro-search": {
+    "slug": "intro-search",
+    "title": "サイト内検索について",
+    "filename": "サイト内検索について.md",
+    "tags": [],
+    "description": "検索については、 [Fuse.js](https://www.fusejs.io/) を用いて実装しています。 > [!Note] > [[今後の開発予定]]からの実装です。 ## 検索周りの実装概要...",
+    "thumbnail": null,
+    "createdAt": "2025-12-03T11:18:05.000Z",
+    "updatedAt": "2025-12-03T11:18:05.000Z"
+  },
   "syntax-highlight": {
     "slug": "syntax-highlight",
     "title": "シンタックスハイライトについて",
     "filename": "シンタックスハイライトについて.md",
     "tags": [],
-    "description": "シンタックスハイライトについては、[Prism](https://prismjs.com/) (より正確には [markdown-it-prism - npm](https://www.npmjs.c...",
+    "description": "シンタックスハイライトについては、[Prism](https://prismjs.com/) を用いて実装しています。 > [!Note] > [[今後の開発予定]]からの実装です。 ## 概要 [P...",
     "thumbnail": null,
     "createdAt": "2025-12-03T07:49:43.000Z",
     "updatedAt": "2025-12-03T07:49:43.000Z"

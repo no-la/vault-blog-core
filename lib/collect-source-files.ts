@@ -1,7 +1,6 @@
 import * as fs from "fs";
 import path from "path";
 import { POST_ASSET_DEST_DIR } from "../config/path";
-import { encodeForURI } from "./path-utils";
 import {
   IMAGE_EXTENSIONS,
   MOVIE_EXTENSIONS,
@@ -45,7 +44,10 @@ const collectSourceFiles = (
     const parts = p1.split("|");
     const fileName = `${parts[0]}.${ext}`;
     const srcPath = path.join(sourceDir, fileName);
-    const destPath = path.join(POST_ASSET_DEST_DIR, encodeForURI(fileName));
+    const destPath = path.join(
+      POST_ASSET_DEST_DIR,
+      encodeURIComponent(fileName)
+    );
 
     collectSourceFile(srcPath, destPath);
   }
@@ -55,7 +57,7 @@ export const collectThumbnailFile = (filename: string) => {
     return;
   }
   const srcPath = path.join(THUMBNAIL_SOURCE_DIR, filename);
-  const destPath = path.join(POST_ASSET_DEST_DIR, encodeForURI(filename));
+  const destPath = path.join(POST_ASSET_DEST_DIR, encodeURIComponent(filename));
 
   collectSourceFile(srcPath, destPath);
 };

@@ -1,6 +1,7 @@
 {
   "Callout の変換例.md": "callout-sample",
   "Markdown の変換例.md": "converted-markdown-sample",
+  "OGP画像の自動生成について.md": "intro-ogp-image",
   "Vault Blog Core とは？.md": "introduce",
   "Vault Blog Core におけるファイルパスの扱いについて.md": "remark-file-path",
   "Vault Blog Core による記事投稿までの手順.md": "how-to-post",
@@ -12,6 +13,7 @@
   "Vercelにデプロイするまでの手順.md": "deploy-to-vercel",
   "Youtube動画の埋め込み.md": "embed-youtube-sample",
   "カードリンクの埋め込み.md": "card-link-sample",
+  "サイト内検索について.md": "intro-search",
   "シンタックスハイライトについて.md": "syntax-highlight",
   "今後の開発予定.md": "next-develop"
 }
