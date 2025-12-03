@@ -1,12 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import Tag from "@/components/tag";
-import { PostHtml } from "../../types/post";
+import { PostMeta } from "../../types/post";
 import { getPostAssetUrlByFilename, getPostUrl } from "@/lib/routes";
 import styles from "./post-card.module.css";
 import { ogApiUrl } from "@/config/api-route";
 
-const PostCard = ({ post }: { post: PostHtml }) => {
+const PostCard = ({ post }: { post: PostMeta }) => {
   return (
     <Link href={getPostUrl(post.slug)} className={styles.link}>
       <div className={styles.thumbnailWrapper}>

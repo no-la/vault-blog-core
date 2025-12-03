@@ -6,10 +6,6 @@ export const existsPostAsset = (fileName: string): boolean => {
   return fs.existsSync(path.join(POST_ASSET_DEST_DIR, fileName));
 };
 
-export const encodeForURI = (text: string) => {
-  return encodeURIComponent(text.replace(/\s/g, "-"));
-};
-
 /**
  * Markdownファイル関連
  */

@@ -1,7 +1,7 @@
 import matter from "gray-matter";
 import { FrontMatter, PostMd, PostMeta } from "../types/post";
 import * as fs from "fs";
-import { encodeForURI, getPostMdFilePath } from "./path-utils";
+import { getPostMdFilePath } from "./path-utils";
 import { POST_DESCRIPTION_LIMIT } from "../config/post-settings";
 
 export const extractFrontMatter = (filePath: string) => {
@@ -68,7 +68,7 @@ const getThumbnailFilename = (thumbnailFm: string): string | null => {
   const parts = p1.split("|");
   const filename = `${parts[0]}.${ext}`;
 
-  return encodeForURI(filename);
+  return encodeURIComponent(filename);
 };
 
 export const allCodeBlocksSimpleRegex = (): RegExp => {

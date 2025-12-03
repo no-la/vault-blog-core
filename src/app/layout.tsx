@@ -11,6 +11,7 @@ import {
   getHomeUrl,
   getPostsUrl,
   getRssUrl,
+  getSearchUrl,
   getTagsUrl,
 } from "@/lib/routes";
 import CopyButtonHandler from "@/components/copy-button-handler";
@@ -64,6 +65,9 @@ export default function RootLayout({
               </li>
               <li className="nav-li">
                 <Link href={getTagsUrl()}>Tags</Link>
+              </li>
+              <li className="nav-li">
+                <Link href={getSearchUrl()}>Search</Link>
               </li>
             </ul>
             <Link
