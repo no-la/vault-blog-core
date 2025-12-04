@@ -18,6 +18,7 @@ import taskLists from "markdown-it-task-lists";
 import anchor from "markdown-it-anchor";
 import markdownItCopyButton from "./markdown/plugins/markdown-it-copy-button";
 import markdownItHighlight from "./markdown/plugins/markdown-it-syntax-highlight.prism";
+import { markdownItCallout } from "./markdown/plugins/markdown-it-callout";
 
 const embedPageGenerator = (alt: string, url: PostSlug): string => {
   return pageLinkGenerator(alt, url);
@@ -99,7 +100,6 @@ export class ConvertingMarkdown {
   executeAll(): string {
     return this.convertTabToSpaces()
       .convertCardlinkBlocks()
-      .converCallouts()
       .escapeCodeBlocks()
       .escapeInlineCodeBlocks()
       .convertEmbedLinks()
@@ -134,6 +134,7 @@ export class ConvertingMarkdown {
           });
         },
       })
+      .use(markdownItCallout)
       .use(markdownItHighlight)
       .use(markdownItCopyButton);
     this.content = md.render(this.toString());
@@ -239,73 +240,6 @@ export class ConvertingMarkdown {
 </a>`;
       }
     );
-    return this;
-  }
-
-  converCallouts(): ConvertingMarkdown {
-    // NOTE: should escape code blocks
-    const lines = this.content.split("\n");
-    let inCodeBlock = false;
-    const result: string[] = [];
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-
-      // コードブロック開始・終了判定
-      if (/^\s*```/.test(line.trim())) {
-        inCodeBlock = !inCodeBlock;
-        result.push(line);
-        continue;
-      }
-
-      // コードブロック内はそのまま
-      if (inCodeBlock) {
-        result.push(line);
-        continue;
-      }
-
-      // callout検出
-      const calloutStartMatch = /^\s*> \[!(.+)\](.*)/.exec(line);
-      if (calloutStartMatch) {
-        const kind = calloutStartMatch[1].trim();
-        const lowerKind = kind.toLowerCase();
-
-        result.push(
-          `<div class="callout callout-${lowerKind}">
-  <div class="callout-title">${escapeHtml(kind)}</div>
-  <div class="callout-content">`
-        );
-
-        const calloutContentLines: string[] = [];
-
-        // callout内部の本文行を収集
-        let j = i + 1;
-        while (j < lines.length) {
-          const nextMatch = /^\s*>\s*?(.*)/.exec(lines[j]);
-          if (!nextMatch) break; // '>' で始まらなければ終了
-          // 新しい callout の開始行なら、現在の callout を閉じる
-          if (/^\s*>\s*\[!(.+)\]/.test(lines[j])) break;
-          calloutContentLines.push(nextMatch[1]);
-          j++;
-        }
-
-        // 本文HTML化
-
-        result.push(
-          new ConvertingMarkdown(calloutContentLines.join("\n")).executeAll()
-        );
-
-        result.push(`</div></div>`); // callout閉じタグ
-
-        i = j - 1;
-        continue;
-      }
-
-      // 通常行
-      result.push(line);
-    }
-
-    this.content = result.join("\n");
     return this;
   }
 
