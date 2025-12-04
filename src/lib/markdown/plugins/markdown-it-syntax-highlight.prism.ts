@@ -8,12 +8,14 @@ loadLanguages(LANG_FOR_HIGHLIGHT);
 const markdownItHighlight = (md: MarkdownIt) => {
   md.renderer.rules.fence = (tokens, idx, options, env, self) => {
     const token = tokens[idx];
-    const code = token.content.trim();
+    const code = token.content;
     const lang = token.info?.trim() || "";
 
     let highlighted = code;
     if (lang && Prism.languages[lang]) {
       highlighted = Prism.highlight(code, Prism.languages[lang], lang);
+    } else {
+      highlighted = md.utils.escapeHtml(code);
     }
 
     const langClass = lang ? `language-${lang}` : "";
